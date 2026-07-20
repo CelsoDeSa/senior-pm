@@ -759,12 +759,12 @@
     {
       "path": "scripts/hosted-checkout-policy.mjs",
       "provenance": "candidate-authored",
-      "sha256": "5becd71a5a3eff4ff20084697fa0a0983e6a993d02ea3c0c6ceb8a2f1a825406"
+      "sha256": "47fd9e374034ce5d2f3af87a9214fcf6aa2ffac18338f78186c83630779e0023"
     },
     {
       "path": "scripts/run-gate.mjs",
       "provenance": "candidate-authored",
-      "sha256": "605afb37559f9c17956507cc5079a772c1d8beda97d5333981e6b8eef31a4923"
+      "sha256": "bf3c5e618f70fdbac47503576e09ee6abcbefc7ad1c7ec3f1e7190b5eef46283"
     },
     {
       "path": "scripts/run-opencode-matrix.mjs",
@@ -774,7 +774,7 @@
     {
       "path": "scripts/test-hosted-checkout-policy.mjs",
       "provenance": "candidate-authored",
-      "sha256": "81f541cc1ae2e4e9617e2917a4d122f0792a61fc1f1bd9ae95236c877fb2911d"
+      "sha256": "bf3796c8092c3845b6b917777e88346abe3b09ac442492277b7887ed66c3b8fd"
     },
     {
       "path": "scripts/validate-known-legacy.mjs",

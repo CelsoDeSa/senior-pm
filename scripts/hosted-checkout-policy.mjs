@@ -63,17 +63,10 @@ export const isSyntheticPullRequestMergeCheckout = ({
   );
 };
 
-export const isGeneratedProtectedMainMergeCheckout = ({
-  eventName,
-  githubRef,
+export const isCanonicalGitHubPullRequestMerge = ({
   repository,
   canonicalRepository,
-  expectedCommit,
-  actualCommit,
   parents,
-  pushBefore,
-  pushAfter,
-  headCommitId,
   mergeMessage,
   committerName,
   committerEmail,
@@ -81,17 +74,10 @@ export const isGeneratedProtectedMainMergeCheckout = ({
 }) => {
   const message = /^Merge pull request #([1-9][0-9]*) from ([A-Za-z0-9-]+)\/([A-Za-z0-9][A-Za-z0-9._/-]*)\n\n[^\0]+$/.exec(mergeMessage ?? "");
   return (
-    eventName === "push" &&
-    githubRef === "refs/heads/main" &&
     repository === canonicalRepository &&
-    hash.test(expectedCommit ?? "") &&
-    actualCommit === expectedCommit &&
     parents.length === 2 &&
     parents[0] !== parents[1] &&
     parents.every((parent) => hash.test(parent)) &&
-    pushBefore === parents[0] &&
-    pushAfter === actualCommit &&
-    headCommitId === actualCommit &&
     message !== null &&
     message[2] === canonicalOwner &&
     committerName === "GitHub" &&
@@ -99,5 +85,24 @@ export const isGeneratedProtectedMainMergeCheckout = ({
   );
 };
 
-export const enforcesCommitEmailPolicy = ({ commit, syntheticMergeCommit, generatedMainMergeCommit }) =>
-  commit !== syntheticMergeCommit && commit !== generatedMainMergeCommit;
+export const isGeneratedProtectedMainMergeCheckout = ({
+  eventName,
+  githubRef,
+  expectedCommit,
+  actualCommit,
+  pushBefore,
+  pushAfter,
+  headCommitId,
+  ...merge
+}) =>
+  eventName === "push" &&
+  githubRef === "refs/heads/main" &&
+  hash.test(expectedCommit ?? "") &&
+  actualCommit === expectedCommit &&
+  pushBefore === merge.parents[0] &&
+  pushAfter === actualCommit &&
+  headCommitId === actualCommit &&
+  isCanonicalGitHubPullRequestMerge(merge);
+
+export const enforcesCommitEmailPolicy = ({ commit, syntheticMergeCommit, generatedMainMergeCommit, historicalGeneratedMerge }) =>
+  commit !== syntheticMergeCommit && commit !== generatedMainMergeCommit && !historicalGeneratedMerge;

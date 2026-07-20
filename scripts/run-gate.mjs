@@ -4,6 +4,7 @@ import { lstat, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises
 import path from "node:path";
 import {
   enforcesCommitEmailPolicy,
+  isCanonicalGitHubPullRequestMerge,
   isGeneratedProtectedMainMergeCheckout,
   isExpectedHostedCheckout,
   isHostedCheckoutShape,
@@ -35,6 +36,8 @@ const exact = (command, args) =>
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const canonicalSourceUrl =
   "https://github.com/" + ["Celso", "DeSa"].join("") + "/senior-pm";
+const canonicalOwner = ["Celso", "DeSa"].join("");
+const canonicalRepository = `${canonicalOwner}/senior-pm`;
 const canonicalSourceUrlPattern = new RegExp(
   canonicalSourceUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "[^\\s<>\"'`)]*",
   "g",
@@ -144,8 +147,6 @@ try {
       if (syntheticMergeCheckout) syntheticMergeCommit = actualCommit;
       const event = JSON.parse(await readFile(process.env.GITHUB_EVENT_PATH ?? "", "utf8"));
       const [committerName, committerEmail] = exact("git", ["show", "-s", "--format=%cn%x00%ce", actualCommit]).split("\0");
-      const canonicalOwner = ["Celso", "DeSa"].join("");
-      const canonicalRepository = `${canonicalOwner}/senior-pm`;
       const generatedMainMergeCheckout = isGeneratedProtectedMainMergeCheckout({
         eventName: process.env.GITHUB_EVENT_NAME,
         githubRef: process.env.GITHUB_REF,
@@ -344,19 +345,33 @@ try {
     }
     const metadata = execFileSync(
       "git",
-      ["log", "--format=%H%x00%ae%x00%ce%x00%B%x00", "--all"],
+      ["log", "--format=%H%x00%ae%x00%cn%x00%ce%x00%B%x00", "--all"],
       { cwd: root, encoding: "utf8" },
     ).split("\0");
     const noreply = /^\d+\+[A-Za-z0-9-]+@users\.noreply\.github\.com$/;
-    for (let index = 0; index + 3 < metadata.length; index += 4) {
-      const [commit, authorEmail, committerEmail, message] = metadata.slice(index, index + 4);
+    for (let index = 0; index + 4 < metadata.length; index += 5) {
+      const [commit, authorEmail, committerName, committerEmail, message] = metadata.slice(index, index + 5);
       if (!commit) continue;
+      const parents = exact("git", ["show", "-s", "--format=%P", commit])
+        .split(" ")
+        .filter(Boolean);
+      const historicalGeneratedMerge =
+        commit !== syntheticMergeCommit &&
+        isCanonicalGitHubPullRequestMerge({
+          repository: canonicalRepository,
+          canonicalRepository,
+          parents,
+          mergeMessage: message,
+          committerName,
+          committerEmail,
+          canonicalOwner,
+        });
       if (
-        enforcesCommitEmailPolicy({ commit, syntheticMergeCommit, generatedMainMergeCommit }) &&
+        enforcesCommitEmailPolicy({ commit, syntheticMergeCommit, generatedMainMergeCommit, historicalGeneratedMerge }) &&
         (!noreply.test(authorEmail) || !noreply.test(committerEmail))
       )
         historyForbidden.push(`${commit.slice(0, 12)}:commit-email-policy`);
-      if (commit !== generatedMainMergeCommit) {
+      if (commit !== generatedMainMergeCommit && !historicalGeneratedMerge) {
         const messageFindings = [];
         scanPolicy("COMMIT_MESSAGE", message, messageFindings);
         historyForbidden.push(...messageFindings.map((finding) => `${commit.slice(0, 12)}:${finding}`));
