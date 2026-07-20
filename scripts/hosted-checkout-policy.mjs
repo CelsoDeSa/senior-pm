@@ -1,5 +1,12 @@
 const hash = /^[a-f0-9]{40}$/;
 
+export const parseParentList = (output) => {
+  const trimmed = (output ?? "").trim();
+  if (!trimmed) return [];
+  const parents = trimmed.split(/\s+/);
+  return parents.every((parent) => hash.test(parent)) ? parents : [];
+};
+
 export const isExpectedHostedCheckout = ({
   githubActions,
   expectedCommit,
@@ -63,5 +70,80 @@ export const isSyntheticPullRequestMergeCheckout = ({
   );
 };
 
-export const enforcesCommitEmailPolicy = ({ commit, syntheticMergeCommit }) =>
-  commit !== syntheticMergeCommit;
+export const isCanonicalGitHubPullRequestMerge = ({
+  repository,
+  canonicalRepository,
+  parents,
+  mergeMessage,
+  committerName,
+  committerEmail,
+  canonicalOwner,
+}) => {
+  const message = /^Merge pull request #([1-9][0-9]*) from ([A-Za-z0-9-]+)\/([A-Za-z0-9][A-Za-z0-9._/-]*)\n\n[^\0]+$/.exec(mergeMessage ?? "");
+  return (
+    repository === canonicalRepository &&
+    parents.length === 2 &&
+    parents[0] !== parents[1] &&
+    parents.every((parent) => hash.test(parent)) &&
+    message !== null &&
+    message[2] === canonicalOwner &&
+    committerName === "GitHub" &&
+    committerEmail === ["noreply", ["github", "com"].join(".")].join("@")
+  );
+};
+
+export const isGeneratedProtectedMainMergeCheckout = ({
+  eventName,
+  githubRef,
+  expectedCommit,
+  actualCommit,
+  pushBefore,
+  pushAfter,
+  headCommitId,
+  ...merge
+}) =>
+  eventName === "push" &&
+  githubRef === "refs/heads/main" &&
+  hash.test(expectedCommit ?? "") &&
+  actualCommit === expectedCommit &&
+  pushBefore === merge.parents[0] &&
+  pushAfter === actualCommit &&
+  headCommitId === actualCommit &&
+  isCanonicalGitHubPullRequestMerge(merge);
+
+export const isReviewedHistoricalMerge = ({ commit, parents, allowlist }) => {
+  if (
+    allowlist?.schemaVersion !== 1 ||
+    !Array.isArray(allowlist.entries) ||
+    allowlist.entries.length > 16
+  )
+    return false;
+  const seen = new Set();
+  for (const entry of allowlist.entries) {
+    if (
+      !entry ||
+      typeof entry !== "object" ||
+      Object.keys(entry).length !== 3 ||
+      !hash.test(entry.commit ?? "") ||
+      !Array.isArray(entry.parents) ||
+      entry.parents.length !== 2 ||
+      entry.parents[0] === entry.parents[1] ||
+      !entry.parents.every((parent) => hash.test(parent)) ||
+      typeof entry.rationale !== "string" ||
+      !entry.rationale.length ||
+      entry.rationale.length > 160 ||
+      seen.has(entry.commit)
+    )
+      return false;
+    seen.add(entry.commit);
+  }
+  return allowlist.entries.some(
+    (entry) =>
+      entry.commit === commit &&
+      entry.parents.length === parents.length &&
+      entry.parents.every((parent, index) => parent === parents[index]),
+  );
+};
+
+export const enforcesCommitEmailPolicy = ({ commit, syntheticMergeCommit, generatedMainMergeCommit, historicalGeneratedMerge }) =>
+  commit !== syntheticMergeCommit && commit !== generatedMainMergeCommit && !historicalGeneratedMerge;

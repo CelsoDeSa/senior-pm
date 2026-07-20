@@ -4,9 +4,12 @@ import { lstat, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises
 import path from "node:path";
 import {
   enforcesCommitEmailPolicy,
+  isGeneratedProtectedMainMergeCheckout,
   isExpectedHostedCheckout,
   isHostedCheckoutShape,
+  isReviewedHistoricalMerge,
   isSyntheticPullRequestMergeCheckout,
+  parseParentList,
 } from "./hosted-checkout-policy.mjs";
 
 const gate = process.argv[2];
@@ -34,6 +37,8 @@ const exact = (command, args) =>
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const canonicalSourceUrl =
   "https://github.com/" + ["Celso", "DeSa"].join("") + "/senior-pm";
+const canonicalOwner = ["Celso", "DeSa"].join("");
+const canonicalRepository = `${canonicalOwner}/senior-pm`;
 const canonicalSourceUrlPattern = new RegExp(
   canonicalSourceUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "[^\\s<>\"'`)]*",
   "g",
@@ -63,6 +68,7 @@ const report = async (verdict) => {
   );
 };
 let syntheticMergeCommit;
+let generatedMainMergeCommit;
 
 try {
   if (gate === "A") {
@@ -123,9 +129,7 @@ try {
         }),
         `remotes=${remotes.join(",") || "none"} refs=${refs.join(",") || "detached"}`,
       );
-      const checkoutParents = exact("git", ["show", "-s", "--format=%P", actualCommit])
-        .split(" ")
-        .filter(Boolean);
+      const checkoutParents = parseParentList(exact("git", ["show", "-s", "--format=%P", actualCommit]));
       const syntheticMergeCheckout = isSyntheticPullRequestMergeCheckout({
         eventName: process.env.GITHUB_EVENT_NAME,
         githubRef: process.env.GITHUB_REF,
@@ -140,6 +144,31 @@ try {
         `event=${process.env.GITHUB_EVENT_NAME ?? "unset"} commit=${actualCommit} parents=${checkoutParents.length}`,
       );
       if (syntheticMergeCheckout) syntheticMergeCommit = actualCommit;
+      const event = JSON.parse(await readFile(process.env.GITHUB_EVENT_PATH ?? "", "utf8"));
+      const [committerName, committerEmail] = exact("git", ["show", "-s", "--format=%cn%x00%ce", actualCommit]).split("\0");
+      const generatedMainMergeCheckout = isGeneratedProtectedMainMergeCheckout({
+        eventName: process.env.GITHUB_EVENT_NAME,
+        githubRef: process.env.GITHUB_REF,
+        repository: process.env.GITHUB_REPOSITORY,
+        canonicalRepository,
+        expectedCommit,
+        actualCommit,
+        parents: checkoutParents,
+        pushBefore: event.before,
+        pushAfter: event.after,
+        headCommitId: event.head_commit?.id,
+        mergeMessage: exact("git", ["show", "-s", "--format=%B", actualCommit]),
+        committerName,
+        committerEmail,
+        canonicalOwner,
+      });
+      const pushToMain = process.env.GITHUB_EVENT_NAME === "push" && process.env.GITHUB_REF === "refs/heads/main";
+      record(
+        "hosted-main-merge-metadata-exemption-shape",
+        !pushToMain || generatedMainMergeCheckout,
+        `event=${process.env.GITHUB_EVENT_NAME ?? "unset"} ref=${process.env.GITHUB_REF ?? "unset"} commit=${actualCommit} parents=${checkoutParents.length}`,
+      );
+      if (generatedMainMergeCheckout) generatedMainMergeCommit = actualCommit;
     }
     const inventory = JSON.parse(
       await readFile(path.join(root, "docs/export-inventory.json"), "utf8"),
@@ -315,21 +344,35 @@ try {
     }
     const metadata = execFileSync(
       "git",
-      ["log", "--format=%H%x00%ae%x00%ce%x00%B%x00", "--all"],
+      ["log", "--format=%H%x00%ae%x00%cn%x00%ce%x00%B%x00", "--all"],
       { cwd: root, encoding: "utf8" },
     ).split("\0");
+    const historicalMergeAllowlist = JSON.parse(
+      await readFile(path.join(root, "docs/generated-merge-allowlist.json"), "utf8"),
+    );
     const noreply = /^\d+\+[A-Za-z0-9-]+@users\.noreply\.github\.com$/;
-    for (let index = 0; index + 3 < metadata.length; index += 4) {
-      const [commit, authorEmail, committerEmail, message] = metadata.slice(index, index + 4);
+    for (let index = 0; index + 4 < metadata.length; index += 5) {
+      const [rawCommit, authorEmail, _committerName, committerEmail, message] = metadata.slice(index, index + 5);
+      const commit = rawCommit.trim();
       if (!commit) continue;
+      const parents = parseParentList(exact("git", ["show", "-s", "--format=%P", commit]));
+      const historicalGeneratedMerge =
+        commit !== syntheticMergeCommit &&
+        isReviewedHistoricalMerge({
+          commit,
+          parents,
+          allowlist: historicalMergeAllowlist,
+        });
       if (
-        enforcesCommitEmailPolicy({ commit, syntheticMergeCommit }) &&
+        enforcesCommitEmailPolicy({ commit, syntheticMergeCommit, generatedMainMergeCommit, historicalGeneratedMerge }) &&
         (!noreply.test(authorEmail) || !noreply.test(committerEmail))
       )
         historyForbidden.push(`${commit.slice(0, 12)}:commit-email-policy`);
-      const messageFindings = [];
-      scanPolicy("COMMIT_MESSAGE", message, messageFindings);
-      historyForbidden.push(...messageFindings.map((finding) => `${commit.slice(0, 12)}:${finding}`));
+      if (commit !== generatedMainMergeCommit && !historicalGeneratedMerge) {
+        const messageFindings = [];
+        scanPolicy("COMMIT_MESSAGE", message, messageFindings);
+        historyForbidden.push(...messageFindings.map((finding) => `${commit.slice(0, 12)}:${finding}`));
+      }
     }
     record(
       "reachable-history-policy-scan",
