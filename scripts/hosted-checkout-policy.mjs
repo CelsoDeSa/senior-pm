@@ -1,5 +1,12 @@
 const hash = /^[a-f0-9]{40}$/;
 
+export const parseParentList = (output) => {
+  const trimmed = (output ?? "").trim();
+  if (!trimmed) return [];
+  const parents = trimmed.split(/\s+/);
+  return parents.every((parent) => hash.test(parent)) ? parents : [];
+};
+
 export const isExpectedHostedCheckout = ({
   githubActions,
   expectedCommit,

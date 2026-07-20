@@ -9,6 +9,7 @@ import {
   isExpectedHostedCheckout,
   isHostedCheckoutShape,
   isSyntheticPullRequestMergeCheckout,
+  parseParentList,
 } from "./hosted-checkout-policy.mjs";
 
 const gate = process.argv[2];
@@ -128,9 +129,7 @@ try {
         }),
         `remotes=${remotes.join(",") || "none"} refs=${refs.join(",") || "detached"}`,
       );
-      const checkoutParents = exact("git", ["show", "-s", "--format=%P", actualCommit])
-        .split(" ")
-        .filter(Boolean);
+      const checkoutParents = parseParentList(exact("git", ["show", "-s", "--format=%P", actualCommit]));
       const syntheticMergeCheckout = isSyntheticPullRequestMergeCheckout({
         eventName: process.env.GITHUB_EVENT_NAME,
         githubRef: process.env.GITHUB_REF,
@@ -350,11 +349,10 @@ try {
     ).split("\0");
     const noreply = /^\d+\+[A-Za-z0-9-]+@users\.noreply\.github\.com$/;
     for (let index = 0; index + 4 < metadata.length; index += 5) {
-      const [commit, authorEmail, committerName, committerEmail, message] = metadata.slice(index, index + 5);
+      const [rawCommit, authorEmail, committerName, committerEmail, message] = metadata.slice(index, index + 5);
+      const commit = rawCommit.trim();
       if (!commit) continue;
-      const parents = exact("git", ["show", "-s", "--format=%P", commit])
-        .split(" ")
-        .filter(Boolean);
+      const parents = parseParentList(exact("git", ["show", "-s", "--format=%P", commit]));
       const historicalGeneratedMerge =
         commit !== syntheticMergeCommit &&
         isCanonicalGitHubPullRequestMerge({

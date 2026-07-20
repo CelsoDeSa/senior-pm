@@ -6,10 +6,16 @@ import {
   isExpectedHostedCheckout,
   isHostedCheckoutShape,
   isSyntheticPullRequestMergeCheckout,
+  parseParentList,
 } from "./hosted-checkout-policy.mjs";
 
 const commit = "a".repeat(40);
 const tree = "b".repeat(40);
+const parentOne = "d".repeat(40);
+const parentTwo = "e".repeat(40);
+assert.deepEqual(parseParentList(`\n${parentOne}\n${parentTwo}\n`), [parentOne, parentTwo], "parses newline-delimited parent SHAs without whitespace");
+assert.deepEqual(parseParentList(`${parentOne}\ninvalid`), [], "refuses a malformed parent SHA");
+assert.deepEqual(parseParentList("\n\n"), [], "refuses an empty parent list");
 const scheme = ["https:", ""].join("/");
 const host = ["github", "com"].join(".");
 const owner = ["Celso", "DeSa"].join("");
