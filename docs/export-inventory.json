@@ -72,6 +72,11 @@
       "sha256": "3187edf4fd659addf1194db8ec30541eaa1cfcbdcf0467ebdd126868e058ee51"
     },
     {
+      "path": "docs/generated-merge-allowlist.json",
+      "provenance": "reviewed-sanitized-export",
+      "sha256": "693d92db2d127a5abffcb0a6b46992bd77e1f567204f0fd095c558833f1f9c53"
+    },
+    {
       "path": "docs/installation.md",
       "provenance": "reviewed-sanitized-export",
       "sha256": "e76b6e22705bc632f57afc8ca7a07af359e10324aa64f0471e4bb5467fb3523e"
@@ -99,7 +104,7 @@
     {
       "path": "docs/security-model.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "43c2c5e84efff9882fb9f313c080a2dfee73bf9113d82a57d2a11f2cda336fe6"
+      "sha256": "28f38d3418b99d946dbc1a0c237362127f8aae73444428ef72d6c9d366362984"
     },
     {
       "path": "docs/specification-contract.md",
@@ -759,12 +764,12 @@
     {
       "path": "scripts/hosted-checkout-policy.mjs",
       "provenance": "candidate-authored",
-      "sha256": "8b9f9cd868d9d70f320dab2d1a2cdaf0424e1f0f55363ccf2c17df2ea01d3a75"
+      "sha256": "cd32571b37365c37f9527cd692a504af3de1bff19b3aab8a1222ae171a4dad94"
     },
     {
       "path": "scripts/run-gate.mjs",
       "provenance": "candidate-authored",
-      "sha256": "acf5b099f625f3c03f6d3eb55d4cd65b921e5885d435be131b8849afb6973d10"
+      "sha256": "5f07a901a6ce8e1c94fa2ab6ad85d5832786a5c7cc5e4403ca724b63d47b592a"
     },
     {
       "path": "scripts/run-opencode-matrix.mjs",
@@ -774,7 +779,7 @@
     {
       "path": "scripts/test-hosted-checkout-policy.mjs",
       "provenance": "candidate-authored",
-      "sha256": "27e9b708ad02509c9824ed14f93c8d9f0b37e7784a61d9ef50c8a5c5a5f124ca"
+      "sha256": "8fca4fd03abddff432a9a0f93b7be7e3aa1504db22ab6e71a96d1e229f518cca"
     },
     {
       "path": "scripts/validate-known-legacy.mjs",

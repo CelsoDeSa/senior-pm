@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "commit": "8d83426f363be6fced3355dce4c88df657a84dd0",
+      "parents": [
+        "06ffdf25bbe4b73f87647199d60daa5362b2aab3",
+        "55b0b6d87dc008d384e976f9d7968ca6cc32731f"
+      ],
+      "rationale": "Reviewed protected-main generated merge; exact immutable identity and parent order."
+    }
+  ]
+}

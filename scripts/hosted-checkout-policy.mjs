@@ -111,5 +111,39 @@ export const isGeneratedProtectedMainMergeCheckout = ({
   headCommitId === actualCommit &&
   isCanonicalGitHubPullRequestMerge(merge);
 
+export const isReviewedHistoricalMerge = ({ commit, parents, allowlist }) => {
+  if (
+    allowlist?.schemaVersion !== 1 ||
+    !Array.isArray(allowlist.entries) ||
+    allowlist.entries.length > 16
+  )
+    return false;
+  const seen = new Set();
+  for (const entry of allowlist.entries) {
+    if (
+      !entry ||
+      typeof entry !== "object" ||
+      Object.keys(entry).length !== 3 ||
+      !hash.test(entry.commit ?? "") ||
+      !Array.isArray(entry.parents) ||
+      entry.parents.length !== 2 ||
+      entry.parents[0] === entry.parents[1] ||
+      !entry.parents.every((parent) => hash.test(parent)) ||
+      typeof entry.rationale !== "string" ||
+      !entry.rationale.length ||
+      entry.rationale.length > 160 ||
+      seen.has(entry.commit)
+    )
+      return false;
+    seen.add(entry.commit);
+  }
+  return allowlist.entries.some(
+    (entry) =>
+      entry.commit === commit &&
+      entry.parents.length === parents.length &&
+      entry.parents.every((parent, index) => parent === parents[index]),
+  );
+};
+
 export const enforcesCommitEmailPolicy = ({ commit, syntheticMergeCommit, generatedMainMergeCommit, historicalGeneratedMerge }) =>
   commit !== syntheticMergeCommit && commit !== generatedMainMergeCommit && !historicalGeneratedMerge;

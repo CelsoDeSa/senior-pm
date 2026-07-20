@@ -4,10 +4,10 @@ import { lstat, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises
 import path from "node:path";
 import {
   enforcesCommitEmailPolicy,
-  isCanonicalGitHubPullRequestMerge,
   isGeneratedProtectedMainMergeCheckout,
   isExpectedHostedCheckout,
   isHostedCheckoutShape,
+  isReviewedHistoricalMerge,
   isSyntheticPullRequestMergeCheckout,
   parseParentList,
 } from "./hosted-checkout-policy.mjs";
@@ -347,22 +347,21 @@ try {
       ["log", "--format=%H%x00%ae%x00%cn%x00%ce%x00%B%x00", "--all"],
       { cwd: root, encoding: "utf8" },
     ).split("\0");
+    const historicalMergeAllowlist = JSON.parse(
+      await readFile(path.join(root, "docs/generated-merge-allowlist.json"), "utf8"),
+    );
     const noreply = /^\d+\+[A-Za-z0-9-]+@users\.noreply\.github\.com$/;
     for (let index = 0; index + 4 < metadata.length; index += 5) {
-      const [rawCommit, authorEmail, committerName, committerEmail, message] = metadata.slice(index, index + 5);
+      const [rawCommit, authorEmail, _committerName, committerEmail, message] = metadata.slice(index, index + 5);
       const commit = rawCommit.trim();
       if (!commit) continue;
       const parents = parseParentList(exact("git", ["show", "-s", "--format=%P", commit]));
       const historicalGeneratedMerge =
         commit !== syntheticMergeCommit &&
-        isCanonicalGitHubPullRequestMerge({
-          repository: canonicalRepository,
-          canonicalRepository,
+        isReviewedHistoricalMerge({
+          commit,
           parents,
-          mergeMessage: message,
-          committerName,
-          committerEmail,
-          canonicalOwner,
+          allowlist: historicalMergeAllowlist,
         });
       if (
         enforcesCommitEmailPolicy({ commit, syntheticMergeCommit, generatedMainMergeCommit, historicalGeneratedMerge }) &&

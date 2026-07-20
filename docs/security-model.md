@@ -110,6 +110,10 @@ Fresh artifact validation merges persisted evaluation policy with current config
 
 Gate D runs `npm audit --audit-level=high` and records the candidate-local result. High or critical findings block readiness. Known warnings must remain visible in the dated gate report rather than being copied from another repository's evidence.
 
+## Historical generated merges
+
+Gate A scans every reachable commit's metadata, messages, blobs, and paths. The only historical email/message exception is an exact commit-and-ordered-parent record in [`generated-merge-allowlist.json`](generated-merge-allowlist.json). A future historical generated merge requires a separately reviewed allowlist entry; message or committer metadata alone cannot create an exception.
+
 ## What the controls do not prove
 
 - Product and repository claims are factually correct.

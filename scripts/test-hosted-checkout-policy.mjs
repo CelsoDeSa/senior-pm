@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import {
   enforcesCommitEmailPolicy,
-  isCanonicalGitHubPullRequestMerge,
   isGeneratedProtectedMainMergeCheckout,
   isExpectedHostedCheckout,
   isHostedCheckoutShape,
   isSyntheticPullRequestMergeCheckout,
   parseParentList,
+  isReviewedHistoricalMerge,
 } from "./hosted-checkout-policy.mjs";
 
 const commit = "a".repeat(40);
@@ -77,7 +77,6 @@ const generatedMainMerge = {
   canonicalOwner: owner,
 };
 assert.equal(isGeneratedProtectedMainMergeCheckout(generatedMainMerge), true, "excludes only a proven generated protected-main merge checkout");
-assert.equal(isCanonicalGitHubPullRequestMerge(generatedMainMerge), true, "accepts a strict historical generated merge");
 assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, githubRef: ["refs", "heads", "release"].join("/") }), false, "refuses a push outside protected main");
 assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, eventName: "pull_request" }), false, "refuses a non-push main merge exemption");
 assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, mergeMessage: "merge" }), false, "refuses a nonstandard merge message");
@@ -87,12 +86,16 @@ assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, pare
 assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, committerName: "Maintainer" }), false, "refuses an ordinary two-parent source merge");
 assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, pushBefore: "f".repeat(40) }), false, "refuses a first-parent mismatch");
 assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, actualCommit: "f".repeat(40) }), false, "refuses a checkout SHA mismatch");
-assert.equal(isCanonicalGitHubPullRequestMerge({ ...generatedMainMerge, committerEmail: ["maintainer", host].join("@") }), false, "refuses a historical merge with an unrecognized committer");
-assert.equal(isCanonicalGitHubPullRequestMerge({ ...generatedMainMerge, mergeMessage: "merge" }), false, "refuses a malformed historical merge message");
-assert.equal(isCanonicalGitHubPullRequestMerge({ ...generatedMainMerge, canonicalOwner: "other" }), false, "refuses a historical merge from another owner");
-assert.equal(isCanonicalGitHubPullRequestMerge({ ...generatedMainMerge, repository: ["other", packageName].join("/") }), false, "refuses a historical merge in another repository");
-assert.equal(isCanonicalGitHubPullRequestMerge({ ...generatedMainMerge, parents: ["d".repeat(40)] }), false, "refuses a historical non-merge commit");
-assert.equal(isCanonicalGitHubPullRequestMerge({ ...generatedMainMerge, committerName: "Maintainer" }), false, "refuses an ordinary historical user merge");
+const reviewedAllowlist = {
+  schemaVersion: 1,
+  entries: [{ commit, parents: generatedMainMerge.parents, rationale: "reviewed generated merge" }],
+};
+assert.equal(isReviewedHistoricalMerge({ commit, parents: generatedMainMerge.parents, allowlist: reviewedAllowlist }), true, "accepts only an exact reviewed historical merge");
+assert.equal(isReviewedHistoricalMerge({ commit: realCommit, parents: generatedMainMerge.parents, allowlist: reviewedAllowlist }), false, "refuses a spoofed same-message two-parent merge with another SHA");
+assert.equal(isReviewedHistoricalMerge({ commit, parents: [...generatedMainMerge.parents].reverse(), allowlist: reviewedAllowlist }), false, "refuses a reviewed merge with reversed parent order");
+assert.equal(isReviewedHistoricalMerge({ commit, parents: ["f".repeat(40), generatedMainMerge.parents[1]], allowlist: reviewedAllowlist }), false, "refuses a reviewed merge with a different parent");
+assert.equal(isReviewedHistoricalMerge({ commit, parents: generatedMainMerge.parents, allowlist: { ...reviewedAllowlist, entries: [...reviewedAllowlist.entries, reviewedAllowlist.entries[0]] } }), false, "refuses duplicate reviewed records");
+assert.equal(isReviewedHistoricalMerge({ commit, parents: generatedMainMerge.parents, allowlist: { ...reviewedAllowlist, entries: [{ ...reviewedAllowlist.entries[0], rationale: "" }] } }), false, "refuses invalid reviewed records");
 assert.equal(enforcesCommitEmailPolicy({ commit: realCommit, generatedMainMergeCommit: commit }), true, "keeps a violating merge parent subject to metadata policy");
 assert.equal(enforcesCommitEmailPolicy({ commit, generatedMainMergeCommit: commit }), false, "excludes only the proven generated main merge commit");
 assert.equal(enforcesCommitEmailPolicy({ commit: realCommit, historicalGeneratedMerge: false }), true, "keeps a violating historical parent subject to metadata policy");
