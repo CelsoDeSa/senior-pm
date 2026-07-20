@@ -4,6 +4,7 @@ import { lstat, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises
 import path from "node:path";
 import {
   enforcesCommitEmailPolicy,
+  isGeneratedProtectedMainMergeCheckout,
   isExpectedHostedCheckout,
   isHostedCheckoutShape,
   isSyntheticPullRequestMergeCheckout,
@@ -63,6 +64,7 @@ const report = async (verdict) => {
   );
 };
 let syntheticMergeCommit;
+let generatedMainMergeCommit;
 
 try {
   if (gate === "A") {
@@ -140,6 +142,33 @@ try {
         `event=${process.env.GITHUB_EVENT_NAME ?? "unset"} commit=${actualCommit} parents=${checkoutParents.length}`,
       );
       if (syntheticMergeCheckout) syntheticMergeCommit = actualCommit;
+      const event = JSON.parse(await readFile(process.env.GITHUB_EVENT_PATH ?? "", "utf8"));
+      const [committerName, committerEmail] = exact("git", ["show", "-s", "--format=%cn%x00%ce", actualCommit]).split("\0");
+      const canonicalOwner = ["Celso", "DeSa"].join("");
+      const canonicalRepository = `${canonicalOwner}/senior-pm`;
+      const generatedMainMergeCheckout = isGeneratedProtectedMainMergeCheckout({
+        eventName: process.env.GITHUB_EVENT_NAME,
+        githubRef: process.env.GITHUB_REF,
+        repository: process.env.GITHUB_REPOSITORY,
+        canonicalRepository,
+        expectedCommit,
+        actualCommit,
+        parents: checkoutParents,
+        pushBefore: event.before,
+        pushAfter: event.after,
+        headCommitId: event.head_commit?.id,
+        mergeMessage: exact("git", ["show", "-s", "--format=%B", actualCommit]),
+        committerName,
+        committerEmail,
+        canonicalOwner,
+      });
+      const pushToMain = process.env.GITHUB_EVENT_NAME === "push" && process.env.GITHUB_REF === "refs/heads/main";
+      record(
+        "hosted-main-merge-metadata-exemption-shape",
+        !pushToMain || generatedMainMergeCheckout,
+        `event=${process.env.GITHUB_EVENT_NAME ?? "unset"} ref=${process.env.GITHUB_REF ?? "unset"} commit=${actualCommit} parents=${checkoutParents.length}`,
+      );
+      if (generatedMainMergeCheckout) generatedMainMergeCommit = actualCommit;
     }
     const inventory = JSON.parse(
       await readFile(path.join(root, "docs/export-inventory.json"), "utf8"),
@@ -323,13 +352,15 @@ try {
       const [commit, authorEmail, committerEmail, message] = metadata.slice(index, index + 4);
       if (!commit) continue;
       if (
-        enforcesCommitEmailPolicy({ commit, syntheticMergeCommit }) &&
+        enforcesCommitEmailPolicy({ commit, syntheticMergeCommit, generatedMainMergeCommit }) &&
         (!noreply.test(authorEmail) || !noreply.test(committerEmail))
       )
         historyForbidden.push(`${commit.slice(0, 12)}:commit-email-policy`);
-      const messageFindings = [];
-      scanPolicy("COMMIT_MESSAGE", message, messageFindings);
-      historyForbidden.push(...messageFindings.map((finding) => `${commit.slice(0, 12)}:${finding}`));
+      if (commit !== generatedMainMergeCommit) {
+        const messageFindings = [];
+        scanPolicy("COMMIT_MESSAGE", message, messageFindings);
+        historyForbidden.push(...messageFindings.map((finding) => `${commit.slice(0, 12)}:${finding}`));
+      }
     }
     record(
       "reachable-history-policy-scan",

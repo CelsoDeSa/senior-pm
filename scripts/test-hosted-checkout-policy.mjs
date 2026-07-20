@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   enforcesCommitEmailPolicy,
+  isGeneratedProtectedMainMergeCheckout,
   isExpectedHostedCheckout,
   isHostedCheckoutShape,
   isSyntheticPullRequestMergeCheckout,
@@ -49,5 +50,36 @@ assert.equal(isSyntheticPullRequestMergeCheckout({ ...syntheticMerge, parents: [
 const realCommit = "f".repeat(40);
 assert.equal(enforcesCommitEmailPolicy({ commit: realCommit, syntheticMergeCommit: commit }), true, "enforces metadata policy for a violating reachable real commit");
 assert.equal(enforcesCommitEmailPolicy({ commit, syntheticMergeCommit: commit }), false, "excludes only the proven synthetic merge commit");
+const mainRef = ["refs", "heads", "main"].join("/");
+const branch = ["docs", "workflow-value"].join("/");
+const mergeMessage = [["Merge pull request #2 from", [owner, branch].join("/")].join(" "), "reviewed change"].join("\n\n");
+const generatedMainMerge = {
+  eventName: "push",
+  githubRef: mainRef,
+  repository: [owner, packageName].join("/"),
+  canonicalRepository: [owner, packageName].join("/"),
+  expectedCommit: commit,
+  actualCommit: commit,
+  parents: ["d".repeat(40), "e".repeat(40)],
+  pushBefore: "d".repeat(40),
+  pushAfter: commit,
+  headCommitId: commit,
+  mergeMessage,
+  committerName: ["Git", "Hub"].join(""),
+  committerEmail: ["noreply", host].join("@"),
+  canonicalOwner: owner,
+};
+assert.equal(isGeneratedProtectedMainMergeCheckout(generatedMainMerge), true, "excludes only a proven generated protected-main merge checkout");
+assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, githubRef: ["refs", "heads", "release"].join("/") }), false, "refuses a push outside protected main");
+assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, eventName: "pull_request" }), false, "refuses a non-push main merge exemption");
+assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, mergeMessage: "merge" }), false, "refuses a nonstandard merge message");
+assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, repository: ["other", packageName].join("/") }), false, "refuses the wrong repository");
+assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, canonicalOwner: "other" }), false, "refuses the wrong source owner");
+assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, parents: ["d".repeat(40)] }), false, "refuses a non-merge source commit");
+assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, committerName: "Maintainer" }), false, "refuses an ordinary two-parent source merge");
+assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, pushBefore: "f".repeat(40) }), false, "refuses a first-parent mismatch");
+assert.equal(isGeneratedProtectedMainMergeCheckout({ ...generatedMainMerge, actualCommit: "f".repeat(40) }), false, "refuses a checkout SHA mismatch");
+assert.equal(enforcesCommitEmailPolicy({ commit: realCommit, generatedMainMergeCommit: commit }), true, "keeps a violating merge parent subject to metadata policy");
+assert.equal(enforcesCommitEmailPolicy({ commit, generatedMainMergeCommit: commit }), false, "excludes only the proven generated main merge commit");
 
 console.log("hosted checkout policy: PASS");

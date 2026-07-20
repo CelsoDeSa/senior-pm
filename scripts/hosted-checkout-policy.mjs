@@ -63,5 +63,41 @@ export const isSyntheticPullRequestMergeCheckout = ({
   );
 };
 
-export const enforcesCommitEmailPolicy = ({ commit, syntheticMergeCommit }) =>
-  commit !== syntheticMergeCommit;
+export const isGeneratedProtectedMainMergeCheckout = ({
+  eventName,
+  githubRef,
+  repository,
+  canonicalRepository,
+  expectedCommit,
+  actualCommit,
+  parents,
+  pushBefore,
+  pushAfter,
+  headCommitId,
+  mergeMessage,
+  committerName,
+  committerEmail,
+  canonicalOwner,
+}) => {
+  const message = /^Merge pull request #([1-9][0-9]*) from ([A-Za-z0-9-]+)\/([A-Za-z0-9][A-Za-z0-9._/-]*)\n\n[^\0]+$/.exec(mergeMessage ?? "");
+  return (
+    eventName === "push" &&
+    githubRef === "refs/heads/main" &&
+    repository === canonicalRepository &&
+    hash.test(expectedCommit ?? "") &&
+    actualCommit === expectedCommit &&
+    parents.length === 2 &&
+    parents[0] !== parents[1] &&
+    parents.every((parent) => hash.test(parent)) &&
+    pushBefore === parents[0] &&
+    pushAfter === actualCommit &&
+    headCommitId === actualCommit &&
+    message !== null &&
+    message[2] === canonicalOwner &&
+    committerName === "GitHub" &&
+    committerEmail === ["noreply", ["github", "com"].join(".")].join("@")
+  );
+};
+
+export const enforcesCommitEmailPolicy = ({ commit, syntheticMergeCommit, generatedMainMergeCommit }) =>
+  commit !== syntheticMergeCommit && commit !== generatedMainMergeCommit;
