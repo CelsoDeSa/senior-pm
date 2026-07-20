@@ -774,7 +774,7 @@
     {
       "path": "scripts/test-hosted-checkout-policy.mjs",
       "provenance": "candidate-authored",
-      "sha256": "6419a4854a736bceaa924d314fb3b9f5fb8f74c2189c24136a30657ab2e854b3"
+      "sha256": "6e61ad5af285a9bec5c202069a556ae897727e189b3078a0a2c2d5295cc9eba4"
     },
     {
       "path": "scripts/validate-known-legacy.mjs",
