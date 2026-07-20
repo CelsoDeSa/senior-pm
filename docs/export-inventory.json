@@ -10,7 +10,7 @@
     {
       "path": ".github/workflows/ci.yml",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "5d98e70d55f85711368cbb7f64b8adbcb3d9e54e5ab820f38fac2fbd00ccbca6"
+      "sha256": "dcba2e1d404b3d4c5f30f7210cbc49d4e64bd6667e6d8e25ccad77d15378fc37"
     },
     {
       "path": ".gitignore",
