@@ -1,0 +1,19 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:4ac6aa31-6f8f-5e5a-9f16-f851f797f2c4",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "senior-pm",
+      "version": "0.1.0"
+    }
+  },
+  "components": [
+    { "type": "library", "name": "zod", "version": "3.25.76", "purl": "pkg:npm/zod@3.25.76", "licenses": [{ "license": { "id": "MIT" } }] },
+    { "type": "library", "name": "jsonc-parser", "version": "3.3.1", "purl": "pkg:npm/jsonc-parser@3.3.1", "licenses": [{ "license": { "id": "MIT" } }] },
+    { "type": "library", "name": "@opencode-ai/plugin", "version": "1.18.3", "purl": "pkg:npm/%40opencode-ai/plugin@1.18.3", "licenses": [{ "license": { "id": "MIT" } }] },
+    { "type": "library", "name": "zod", "version": "4.1.8", "purl": "pkg:npm/zod@4.1.8", "licenses": [{ "license": { "id": "MIT" } }] }
+  ]
+}

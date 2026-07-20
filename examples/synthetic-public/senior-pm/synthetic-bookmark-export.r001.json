@@ -1,0 +1,113 @@
+{
+  "acceptanceCriteria": [
+    {
+      "behavior": "Given two synthetic bookmarks, when export runs, then the output contains two ordered text entries.",
+      "id": "AC-001",
+      "requirementIds": [
+        "FR-001"
+      ]
+    },
+    {
+      "behavior": "Given no synthetic bookmarks, when export runs, then it reports an empty result.",
+      "id": "AC-002",
+      "requirementIds": [
+        "FR-002"
+      ]
+    }
+  ],
+  "businessRules": [
+    "Only synthetic bookmark titles are represented."
+  ],
+  "contentChangesPublicBrand": true,
+  "definitionOfDone": [
+    {
+      "acceptanceCriteria": [
+        "AC-001",
+        "AC-002"
+      ],
+      "text": "Synthetic success and empty outcomes are observable."
+    }
+  ],
+  "dependenciesAndConstraints": [
+    "This sample documents artifact behavior only."
+  ],
+  "designApproved": false,
+  "designReviewRequired": true,
+  "desiredOutcome": "The reader can inspect one clearly labeled synthetic artifact set and distinguish it from compatibility fixtures.",
+  "edgeCases": [
+    "The fictional list is empty.",
+    "The fictional write fails before completion."
+  ],
+  "evaluationPolicy": {},
+  "evidence": {
+    "assumptions": [],
+    "facts": [
+      {
+        "sources": [
+          "examples/synthetic-public/README.md"
+        ],
+        "statement": "The sample is intentionally synthetic."
+      }
+    ],
+    "inferences": [],
+    "unresolved": []
+  },
+  "executiveSummary": "Add a deliberately synthetic text export for a fictional bookmark list so the public sample can demonstrate specification structure without using private product content.",
+  "existingBehaviorToPreserve": [
+    "The sample remains visibly synthetic and separate from compatibility fixtures."
+  ],
+  "functionalRequirements": [
+    {
+      "id": "FR-001",
+      "text": "The fictional export produces one plain-text entry per synthetic bookmark."
+    },
+    {
+      "id": "FR-002",
+      "text": "The fictional export reports an empty result without creating misleading content."
+    }
+  ],
+  "futureConsiderations": [],
+  "generatedAt": "2026-07-19T00:00:00.000Z",
+  "handoffEligible": false,
+  "handoffInstructions": "This illustrative synthetic example has no external design approval. Do not implement or hand it off.",
+  "highRiskBlockers": [],
+  "hostIdentifier": "synthetic-demo",
+  "interfaceImpact": "content_only",
+  "nonFunctionalExpectations": [
+    "Output is deterministic for the same synthetic input."
+  ],
+  "nonGoals": [
+    "No real bookmark service.",
+    "No production implementation.",
+    "No external publication."
+  ],
+  "pluginVersion": "0.1.0",
+  "pm": {
+    "agent": "senior-pm"
+  },
+  "productContentHash": "67dd101d809045247705ceb397abc59d560581541ed20337226f84c7c442c517",
+  "proposedSolution": "Document a synthetic command that exports fictional bookmark titles as plain text and reports success or an empty list.",
+  "relevantStates": [
+    "success",
+    "empty",
+    "error"
+  ],
+  "repositoryContext": "Confirmed: this sample is synthetic documentation and has no production repository claims.",
+  "requestedBy": "Synthetic evaluator",
+  "revision": 1,
+  "schemaVersion": "1.0.0",
+  "slug": "synthetic-bookmark-export",
+  "smallestShippableSlice": "Specify only the fictional plain-text export and its success, empty, and error outcomes.",
+  "specId": "SYNTHETIC-BOOKMARK-EXPORT",
+  "status": "Ready for design review",
+  "statusReason": "External design approval is required.",
+  "targetUser": "A fictional reader evaluating the Senior PM artifact format.",
+  "technicalPlanningRequired": false,
+  "title": "Synthetic bookmark export",
+  "userProblem": "The fictional reader cannot inspect a compact example of the immutable output format without generating one locally.",
+  "userStories": [
+    "As a fictional reader, I want a synthetic export specification, so that I can inspect the artifact contract."
+  ],
+  "uxExpectations": "Text-only synthetic public documentation changes; no interactive interface is introduced.",
+  "validationFailures": []
+}

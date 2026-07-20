@@ -1,0 +1,14 @@
+{
+  "canonicalContentHash": "44b319ffbad523318d60a1232e99ef60076032e372df05f2d51f7ca3cd9a2ab4",
+  "generatedAt": "2026-07-19T00:00:00.000Z",
+  "handoffEligible": false,
+  "hostIdentifier": "synthetic-demo",
+  "instructions": "This illustrative synthetic example has no external design approval. Do not implement or hand it off.",
+  "productContentHash": "67dd101d809045247705ceb397abc59d560581541ed20337226f84c7c442c517",
+  "requestedBy": "Synthetic evaluator",
+  "revision": 1,
+  "schemaVersion": "1.0.0",
+  "specId": "SYNTHETIC-BOOKMARK-EXPORT",
+  "status": "Ready for design review",
+  "validationFailures": []
+}

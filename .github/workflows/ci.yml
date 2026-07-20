@@ -1,0 +1,29 @@
+name: Local-gate parity
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  source-preview-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm test
+      - run: npm run typecheck
+      - run: npm run build
+      - name: Hosted checkout sanitization gate
+        run: npm run gate:a:hosted -- --expected-commit "$GITHUB_SHA" --expected-tree "$(git rev-parse "$GITHUB_SHA^{tree}")"
+      - run: npm run gate:b
+      - run: npm run gate:c
+      - run: npm run matrix:opencode
+      - run: npm run gate:d

@@ -1,0 +1,20 @@
+{
+  "senior_pm": {
+    // Place this in user config or another operator-controlled source.
+    "mode": "autonomous",
+    "model": "inherit",
+    "fallback_model": "inherit",
+    "reasoning": "inherit",
+    "effort": "inherit",
+    "allow_repository_history": false,
+    "allow_external_research": false,
+    "allow_programmatic_invocation": false,
+    "handoff_candidates": [
+      "engineering-planner"
+    ],
+    // Accepted metadata in 0.1.0; no active runtime adapter injects it yet.
+    "product_principles": [
+      "Prefer one reversible user outcome over speculative breadth."
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "synthetic": true,
+  "markerBytes": "{\"owner\":\"elon-musk-agents.senior-product-manager\",\"schemaVersion\":\"1.0.0\"}\n",
+  "legacySchemaAliases": [
+    "https://github.com/CelsoDeSa/elon-musk-agents/schemas/senior-pm-spec.schema.json",
+    "https://github.com/CelsoDeSa/elon-musk-agents/schemas/senior-pm-design-review.schema.json"
+  ],
+  "wrapperBytes": "// visibly synthetic legacy wrapper\n",
+  "manifestBytes": "{\"pluginId\":\"elon-musk-agents.senior-product-manager\",\"synthetic\":true}\n"
+}

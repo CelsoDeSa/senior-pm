@@ -1,0 +1,601 @@
+{
+  "entries": [
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/assets",
+      "type": "directory"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/assets/agents",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/assets/agents/senior-pm.md",
+      "sha256": "4a2b1cbf90d75ea792f55603419a7330ea7d502cc050d7ea47ae53c091cf584e",
+      "type": "file"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/assets/commands",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/assets/commands/pm-handoff.md",
+      "sha256": "b9303df5d2889dad2f326c72af2383c4321ead50ed8dd79ca7797612b899df14",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/assets/commands/pm-revise.md",
+      "sha256": "2742df328e10515c8d022eac42455b90476d77b9f11f9a77efb9ade8e9c43c55",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/assets/commands/pm-spec.md",
+      "sha256": "36555a6c0672f01410b9b9902f1caf5f07cfe18651b48e5c817ea6d8dc3d8e07",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/assets/commands/pm-validate.md",
+      "sha256": "84551453c084875cada85c65e4b6604a2bad3fa1083e3a001ef2f3e0f1bfc84c",
+      "type": "file"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/dist",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/cli.d.ts",
+      "sha256": "e5e11212ce87fbf466ff23b3bc1182075d8f886398ba6bae9d87b2ec9b049c83",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/cli.js",
+      "sha256": "0ae14b7478525cc1d4636aa408fac466e16804b5c28b6a8458b7f6245eb6c3cd",
+      "type": "file"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/dist/config",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/config/index.d.ts",
+      "sha256": "5e6bca365cbb82efa1b4385acfea2c3178484aa08ffae4a7bcdb3105867b1fbd",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/config/index.js",
+      "sha256": "5e6bca365cbb82efa1b4385acfea2c3178484aa08ffae4a7bcdb3105867b1fbd",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/config/loader.d.ts",
+      "sha256": "f773a1ee6057f6db244d90f5b6d92326881f2167ab30e2acb626a141ac6b40d1",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/config/loader.js",
+      "sha256": "cccb4519af060929bf6c08faefa5aab7c86c9784f154971caac43c46b6e80cd8",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/config/schema.d.ts",
+      "sha256": "c288ff00d51198d23ca8977e4f57c78906ee3ac2654695a1251609adee4763fe",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/config/schema.js",
+      "sha256": "243f59c828a3e31b99b811de5c3ba423758973c74345fa12cc4f5fea008c919e",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/core.d.ts",
+      "sha256": "21abc4d5e560eff8c3d8a842ab551e90cc8935140500559865d0f8816511a3dc",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/core.js",
+      "sha256": "3e285dbf0d381c52ce2a08b649349e36d383bc1bd444413ebc3ded8f491ee9f4",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/index.d.ts",
+      "sha256": "1329b2270c57ff570353c591f44f61535f0f9aea62e5d4ab89be54af0c7c7221",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/index.js",
+      "sha256": "1329b2270c57ff570353c591f44f61535f0f9aea62e5d4ab89be54af0c7c7221",
+      "type": "file"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/dist/installer",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/installer/index.d.ts",
+      "sha256": "3ada08009ab715c930fc1548d4f115b5312ac7e01f217b9a17287baaf5c6c3bc",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/installer/index.js",
+      "sha256": "b9cdabb341b44120a65734e33cc72523af18a37cff39b2e2b7000d5fd126c70e",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/installer/transactional.d.ts",
+      "sha256": "2e76ddaa46ce094e8989a7e698b9f5524c77a628667c6cd7a563d7597ae461b6",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/installer/transactional.js",
+      "sha256": "3e4919f11cd9e7bde62bc8bf76f71781a81f24ba7b338d3cd342105ff116e613",
+      "type": "file"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/dist/plugin",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/plugin.d.ts",
+      "sha256": "ff9c28e7c708f2bc343fcd692d687e5d29d2f2af78578cff915612977442b273",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/plugin.js",
+      "sha256": "50cb1509e68b34b587194f37fdba1615766087d8ec336772259ef720083eec8c",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/plugin/assets.d.ts",
+      "sha256": "bd9e7b9e0c912bf148afae51478068b4e545542a19cb192b7ff3b4173faba529",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/plugin/assets.js",
+      "sha256": "68bef5736e7f67d4e6e7eff75625606e131cf8841c083f16a971c8f16f00b408",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/plugin/errors.d.ts",
+      "sha256": "9a2e264f6dd1280f4fb1585e3b6b04a385e9b9da4b877e6ae0ee05555c3e4b7b",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/plugin/errors.js",
+      "sha256": "4ba377db349f9945ee914a118a3ae96bfa1b0253c8e18c2fc6d2f866b10c0a5c",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/plugin/index.d.ts",
+      "sha256": "0be1a703f2cd9995aedeb943c15abced37fe856460f8c86e07cb4b1e268f1e2a",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/plugin/index.js",
+      "sha256": "0be1a703f2cd9995aedeb943c15abced37fe856460f8c86e07cb4b1e268f1e2a",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/plugin/runtime.d.ts",
+      "sha256": "2ed1c178c3f8d7b71c81309d0d8c61515610e306a28318ed5477d0b6708d71d3",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/plugin/runtime.js",
+      "sha256": "327d9ba70124756c2d04cb3df9dc0b5da63f70a2dd1f0e3785e8a4cb44446235",
+      "type": "file"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/dist/repository",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/repository/discover.d.ts",
+      "sha256": "61191fffea027f21c3039ff90ba35f57ad324c7c1b5830d9c15107f669ee9f2a",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/repository/discover.js",
+      "sha256": "70a50a3bfdce90b66e4eaae6283a2b19b958a76813bed2ef618ba82e87c8b423",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/repository/index.d.ts",
+      "sha256": "11243e72a835000fa31641b1aff33a7185fa358ca8361ad8b1f6faacc77e6c82",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/repository/index.js",
+      "sha256": "11243e72a835000fa31641b1aff33a7185fa358ca8361ad8b1f6faacc77e6c82",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/repository/types.d.ts",
+      "sha256": "2d4e92870e9073138226f373efcac4d73f563441bc1db8c605c6ee486b165458",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/repository/types.js",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "type": "file"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/dist/shared",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/shared/constants.d.ts",
+      "sha256": "ff0d2c1928d3075d01e2e6114156a992536f7a02b813c04c466ed7ecd4e71c2b",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/shared/constants.js",
+      "sha256": "82e493807337d572422f733e143103b8348b55232d73077160a957d98cf7d76d",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/shared/errors.d.ts",
+      "sha256": "ef5817fee845cfacf07fad9bd055192f8144af55127ab127c862dcf7acc04c46",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/shared/errors.js",
+      "sha256": "c05ce8eb808cc865a4589aba30b61be4956f58e00a528eccce8ae5956fd3f8eb",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/shared/secure-fs.d.ts",
+      "sha256": "cf9bd2517e81431b34172d9f3272f4019c3ecea367d06ea6ea93f5666c9f2280",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/shared/secure-fs.js",
+      "sha256": "b8148d3d2f80d811a2f02367f8a6ca61f28a65fb09559a88e8e4c03eb54ad781",
+      "type": "file"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/dist/spec",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/contract.d.ts",
+      "sha256": "591e0b3688bd2c19d04b089ca23fb320805a5c63af53f6ad714bfb60a45549f5",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/contract.js",
+      "sha256": "751bab4df649b8fce4df24b32c1366686a7115dbaa6e9cf20a89bb1b6ab8212f",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/index.d.ts",
+      "sha256": "e9f5a7676808ef6f9d3501e5af412f8811ef94d1a8a14f4999ab0a85d3e094bf",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/index.js",
+      "sha256": "e9f5a7676808ef6f9d3501e5af412f8811ef94d1a8a14f4999ab0a85d3e094bf",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/limits.d.ts",
+      "sha256": "06d22f42f3def0cbebfd786bba9779655ebb846199f5be52857073a22307f218",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/limits.js",
+      "sha256": "f3f01da7967cb8dfc6205693b0c11d3b3219c2319b2e08999d9bd3b8c7bf9a17",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/normalize.d.ts",
+      "sha256": "de8f113ba9d458c952097e85ae5a0607b8028a7b1a8afbbc39df43ecb802ca32",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/normalize.js",
+      "sha256": "e0a97b3212a45265d722e3568170929d6b3e9109d389ab14119cc5f2ba5cac8b",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/output-root.d.ts",
+      "sha256": "883756771285e45dd6a6a3c866a10745c9e5c95936b655d60879eaa3a466eaed",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/output-root.js",
+      "sha256": "5ad2392958d7709de79dbefa59a055443e1abdb9ef3a1efc29d0226a43c7442b",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/render.d.ts",
+      "sha256": "e0e1d2b2933a4d113621a7412de40ab460143ea99f5dd08b4b9f5e9dc82c97bc",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/render.js",
+      "sha256": "bab699dc0694a60e7ad75174dd503d2ab64e95d3b6a563d7b75f6e65965c2eb0",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/writer.d.ts",
+      "sha256": "446f183349b470df3865ba57249d4e9f80d9e68fb205e6b191f98de6d6553e8a",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/spec/writer.js",
+      "sha256": "6075a6f7214f48893fef6975d74d8beab07f993f4e570e411875eac620115cb4",
+      "type": "file"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/dist/tools",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/tools/index.d.ts",
+      "sha256": "14af97797ef980a252b6b2db92c87f823d9f08d3c3a2912be61abb4460f7ca23",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/tools/index.js",
+      "sha256": "14af97797ef980a252b6b2db92c87f823d9f08d3c3a2912be61abb4460f7ca23",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/tools/runtime.d.ts",
+      "sha256": "2fb2be0b46f67dd2fce8417f5b8d88d6042de44b9ec7293dd3290133454cb854",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/tools/runtime.js",
+      "sha256": "bdb9cb5bfd72a1bc7649695281598af69ca7f62ab4bac8eca2042ee318b6aa86",
+      "type": "file"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/dist/validation",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/validation/artifacts.d.ts",
+      "sha256": "fbf8361bc6429a3df6f8560b370698c6740dc14e03d587215151acc74e0dc2c8",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/validation/artifacts.js",
+      "sha256": "1be27ee0b04236a02120343dd9c620e85e853ecf69f2c3c1b000cfd8227d5563",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/validation/index.d.ts",
+      "sha256": "e00ee10c47c4850938881aec141c6190321fcc64bcd63a563af0420ac9896975",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/validation/index.js",
+      "sha256": "e00ee10c47c4850938881aec141c6190321fcc64bcd63a563af0420ac9896975",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/validation/readiness.d.ts",
+      "sha256": "3fafebb8c65f48ba49c19b3eec6c3f80bfcf1c79c9bcf4ac05661fbd1a9dea39",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/validation/readiness.js",
+      "sha256": "826a2eea1ba2c00c36bf0ace8ce6a20d81f2ad6ff2c4103541581310495730d5",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/validation/schemas.d.ts",
+      "sha256": "e51183cd8c27a4c43263abd21ab00b3797d42d3722c0148de259a2b0012bccc2",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/validation/schemas.js",
+      "sha256": "ad3fafd542526ae0d7b1dc92531a69f851f1d297eba7703db6c47de5bb445b33",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/validation/validate.d.ts",
+      "sha256": "76086b3c1645594f707dd71e3ac1508a5e4591fd2d2b6d53ea468a5dd2667919",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/validation/validate.js",
+      "sha256": "c9bea6143e73daed292a8012e09f7d0075873d06a3cec7241eded708e0c6d85c",
+      "type": "file"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/dist/workflow",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/workflow/handoff.d.ts",
+      "sha256": "c00e94b25fad6ab0db49af8a01c4f730f9dbafcaf22c6d7a15d70ef8e241709a",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/workflow/handoff.js",
+      "sha256": "5e2b8a6a5a1996d712a0aa7072c6fd8fc602bbd77529217c10348659f8e7b695",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/workflow/index.d.ts",
+      "sha256": "aaded8bde6aceac055db641216715531ca5f685988e063f67f7cc318442e88ec",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/workflow/index.js",
+      "sha256": "aaded8bde6aceac055db641216715531ca5f685988e063f67f7cc318442e88ec",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/workflow/nonce.d.ts",
+      "sha256": "a7c9535fc578d7a0ee1ed2625f9542381e4cde5f2c993d8f91b9ae3b132cad57",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/dist/workflow/nonce.js",
+      "sha256": "817390efc9384028ad24a8530a17116fedb2c502a65c314ec59b363ae9299c4d",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/ownership.json",
+      "sha256": "d4cdda2c7e535040b3830b1b36ac2f1adf398eabbf36fd07a2734eeb76a3e17d",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/package.json",
+      "sha256": "3f9a13545fd9b97c3d0c3777fc38f0e7bfdcb20f88048664951b371ddc9014b1",
+      "type": "file"
+    },
+    {
+      "mode": 448,
+      "path": "senior-pm-runtime/0.1.0/schemas",
+      "type": "directory"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/schemas/senior-pm-config.schema.json",
+      "sha256": "cd828c827b724fba9d5ab3b3c8a791d319ec696fe066d8e2430f353b51784381",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/schemas/senior-pm-design-review.schema.json",
+      "sha256": "34dee3192fe131b7f628a56ad167abf6a4cc8026d3c110bbab5ad7d139ffaf1e",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/schemas/senior-pm-handoff.schema.json",
+      "sha256": "0c8c529dc790996bfb9ea5f1dcd662c645da4faa183b006e73c68cfb41b4848a",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/schemas/senior-pm-manifest.schema.json",
+      "sha256": "c1a1d6ad95ca587ab9302fd7936a92b26b4c4dd8a4336ab2914fc9bc77f38a9f",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/schemas/senior-pm-prior-artifact.schema.json",
+      "sha256": "e24d3880a9455c00a7fbe81e5a36d9e29726846f79857b74e1b1cfaa7e8b76c0",
+      "type": "file"
+    },
+    {
+      "mode": 384,
+      "path": "senior-pm-runtime/0.1.0/schemas/senior-pm-spec.schema.json",
+      "sha256": "a4b17ec43901b7c5b7eff54ecd33c0fd64fcad15e30c56202b910e426c820054",
+      "type": "file"
+    }
+  ],
+  "legacyPluginId": "elon-musk-agents.senior-product-manager",
+  "legacyVersion": "0.1.0",
+  "requirements": {
+    "zeroExtraRuntimeEntries": true,
+    "zeroSymlinks": true
+  },
+  "runtimeRoot": "senior-pm-runtime",
+  "runtimeVersions": [
+    "0.1.0"
+  ],
+  "schemaVersion": 1,
+  "wrapper": {
+    "mode": 384,
+    "path": "plugins/senior-product-manager.js",
+    "sha256": "c7868e038aa642767721d3cd87ef7ec6cf5d0ba24ec245875039f8d620d0815d",
+    "type": "file"
+  }
+}

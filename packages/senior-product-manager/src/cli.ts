@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { install, uninstall } from "./installer/index.js";
+import { validateArtifactSet } from "./validation/artifacts.js";
+import { evaluationPolicyFromConfig, loadConfig } from "./config/index.js";
+import { PinnedRepositoryRoot } from "./shared/secure-fs.js";
+
+type IO={out:(s:string)=>void;err:(s:string)=>void};
+export interface CliDependencies { openRepository?: (path:string)=>Promise<PinnedRepositoryRoot>; afterRepositoryPinned?: (root:PinnedRepositoryRoot)=>void|Promise<void>; installCommand?: typeof install; uninstallCommand?: typeof uninstall }
+function options(args:string[]){const o:Record<string,string>={};for(let i=0;i<args.length;i+=2){const k=args[i],v=args[i+1];if(!k?.startsWith("--")||!v||v.startsWith("--"))throw new Error(`Invalid option: ${k??""}`);if(o[k])throw new Error(`Duplicate option: ${k}`);o[k]=v;}return o;}
+function only(o:Record<string,string>,allowed:string[]){for(const k of Object.keys(o))if(!allowed.includes(k))throw new Error(`Unknown option: ${k}`);}
+export async function runCli(argv=process.argv.slice(2),io:IO={out:s=>console.log(s),err:s=>console.error(s)},deps:CliDependencies={}){const [command,...rest]=argv;try{if(command==="version"){if(rest.length)throw new Error("version accepts no options");const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"..");io.out(JSON.parse(await readFile(path.join(root,"package.json"),"utf8")).version);return 0;}const o=options(rest);if(command==="install"||command==="uninstall"){only(o,["--scope","--project"]);if(o["--scope"]!=="project"&&o["--scope"]!=="user")throw new Error("--scope must be project or user");const result=command==="install"?await (deps.installCommand??install)(o["--scope"],o["--project"]):await (deps.uninstallCommand??uninstall)(o["--scope"],o["--project"]);io.out(JSON.stringify(result));if((result as {cleanupRequired?:boolean;recoveryRequired?:boolean}).cleanupRequired||(result as {recoveryRequired?:boolean}).recoveryRequired)return 1;return 0;}if(command==="validate"){only(o,["--repository","--output-root","--artifact-base"]);for(const k of ["--repository","--output-root","--artifact-base"])if(!o[k])throw new Error(`${k} is required`);const repository=path.resolve(o["--repository"]!),pinned=await (deps.openRepository??PinnedRepositoryRoot.open)(repository);try{await deps.afterRepositoryPinned?.(pinned);const settings=await loadConfig({projectRoot:pinned.descriptorPath}),result=await validateArtifactSet(pinned,o["--output-root"]!,o["--artifact-base"]!,{currentPolicy:evaluationPolicyFromConfig(settings)});io.out(JSON.stringify(result));return result.valid?0:1;}finally{await pinned.close();}}throw new Error("Commands: install, uninstall, validate, version");}catch(error){io.err((error as Error).message);return 2;}}
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))process.exitCode=await runCli();

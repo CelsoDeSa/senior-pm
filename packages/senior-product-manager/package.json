@@ -1,0 +1,37 @@
+{
+  "name": "senior-pm",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Repository-grounded Senior PM plugin for OpenCode",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "main": "./dist/plugin.js",
+  "types": "./dist/index.d.ts",
+  "bin": { "senior-pm": "./dist/cli.js" },
+  "files": ["dist/**", "assets/**", "schemas/**", "LICENSES/**", "sbom/**", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"],
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/plugin.js" },
+    "./core": "./dist/core.js",
+    "./config": "./dist/config/index.js",
+    "./repository": "./dist/repository/index.js",
+    "./spec": "./dist/spec/index.js",
+    "./validation": "./dist/validation/index.js",
+    "./installer": "./dist/installer/index.js"
+  },
+  "scripts": {
+    "prepublishOnly": "node -e \"console.error('Publication is disabled for this source preview'); process.exit(1)\"",
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc -b tsconfig.build.json --force && tsup --config tsup.config.ts && node scripts/finalize-build.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:unit": "vitest run --config ../../vitest.config.ts test/unit",
+    "test:integration:core:run": "vitest run --config ../../vitest.config.ts test/integration/core",
+    "test:integration:runtime:run": "vitest run --config ../../vitest.config.ts test/integration/runtime",
+    "test:integration:run": "npm run test:integration:core:run && npm run test:integration:runtime:run",
+    "test:integration:core": "npm run build && npm run test:integration:core:run",
+    "test:integration:runtime": "npm run build && npm run test:integration:runtime:run",
+    "test:integration": "npm run build && npm run test:integration:run",
+    "test": "npm run test:unit && npm run test:integration"
+  },
+  "dependencies": { "jsonc-parser": "^3.3.1", "zod": "^3.25.76" },
+  "devDependencies": { "@opencode-ai/plugin": "1.18.3", "@types/node": "^20.19.9", "ajv": "^8.17.1", "ajv-formats": "^3.0.1", "tsup": "^8.5.0", "typescript": "^5.8.3", "vitest": "^3.2.4" }
+}

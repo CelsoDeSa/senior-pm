@@ -1,0 +1,13 @@
+{
+  "canonicalContentHash": "44b319ffbad523318d60a1232e99ef60076032e372df05f2d51f7ca3cd9a2ab4",
+  "committed": true,
+  "files": {
+    "canonicalJson": "44b319ffbad523318d60a1232e99ef60076032e372df05f2d51f7ca3cd9a2ab4",
+    "handoffJson": "a0f97607b5fde88362f45ccaeac235527837cce234ac37375797e97b18bebd6f",
+    "markdown": "ca9038dc2a9ea2fa020acb038c8579ea9a430b033ca93f2194e274ad4256cb27"
+  },
+  "revision": 1,
+  "schemaVersion": "1.0.0",
+  "specId": "SYNTHETIC-BOOKMARK-EXPORT",
+  "status": "Ready for design review"
+}

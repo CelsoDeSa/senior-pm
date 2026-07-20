@@ -1,0 +1,28 @@
+{
+  "senior_pm": {
+    // Project configuration may tighten limits and policy.
+    "mode": "interactive",
+    "context_limits": {
+      "max_depth": 5,
+      "max_files": 100,
+      "max_file_bytes": 32000,
+      "max_total_bytes": 500000,
+      "timeout_ms": 2000
+    },
+    "specification_directory": "auto",
+    "additional_non_goals": [
+      "Do not add a new administration dashboard.",
+      "Do not change billing or entitlements."
+    ],
+    "required_specification_sections": [
+      "release-notes"
+    ],
+    "tool_restrictions": [
+      "webfetch",
+      "websearch"
+    ],
+    "denied_permissions": {
+      "senior_pm_handoff": "deny"
+    }
+  }
+}

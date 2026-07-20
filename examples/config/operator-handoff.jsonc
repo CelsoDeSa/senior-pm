@@ -1,0 +1,15 @@
+{
+  "senior_pm": {
+    // Operator capability: do not place this in project config or tuple options.
+    "invocation_target": "engineering-planner",
+    "allow_programmatic_invocation": true,
+    "handoff_candidates": [
+      "engineering-planner"
+    ],
+    "denied_permissions": {
+      "edit": "deny",
+      "bash": "deny",
+      "task": "deny"
+    }
+  }
+}

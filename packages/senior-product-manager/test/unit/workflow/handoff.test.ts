@@ -1,0 +1,14 @@
+import { describe, expect, it } from "vitest";
+import { discoverCandidates, invokeChild, manualGuidance, registeredAgentIDs } from "../../../src/workflow/handoff.js";
+import { HandoffNonceStore } from "../../../src/workflow/nonce.js";
+describe("portable handoff", () => {
+  it("reports plain OpenCode manual fallback with no candidates", () => expect(manualGuidance("sample.r001", [])).toMatchObject({ mode: "manual", candidates: [] }));
+  it("lists candidates neutrally without recommending the first",()=>{const guidance=manualGuidance("sample.r001",[{id:"orchestrator"},{id:"plan"}]);expect(guidance.invocation).toContain("orchestrator, plan");expect(guidance.invocation).toContain("human must select");expect(guidance.invocation).not.toContain("invoke @orchestrator");});
+  it("treats OMO and standard names as advisory candidates only", () => expect(discoverCandidates({ agent: { orchestrator: {}, plan: {}, prometheus: {} } })).toEqual([{ id: "orchestrator", advisory: true }, { id: "plan", advisory: true }, { id: "prometheus", advisory: true }]));
+  it("handles a missing orchestrator without inventing one", () => expect(discoverCandidates({ agent: { builder: {} } })).toEqual([{ id: "builder", advisory: false }]));
+  it("binds authorization to artifact, target, expiry and one use", () => { let now = 10; const store = new HandoffNonceStore(5, () => now), intent={artifactBase:"sample.r001",target:"engineer"}; store.issue("s",intent); expect(store.consume("s",{...intent,target:"other"})).toBe(false); store.issue("s",intent); now=20; expect(store.consume("s",intent)).toBe(false); now=30; store.issue("s",intent); expect(store.consume("s",intent)).toBe(true); expect(store.consume("s",intent)).toBe(false); });
+  it("fails closed when SDK child-session methods are absent", async () => await expect(invokeChild({}, "parent", "engineer", "sample.r001")).rejects.toThrow(/unavailable/));
+  it("creates a linked child and prompts the exact configured agent", async () => { const calls: any[] = []; const client = { session: { create: async (x: any) => { calls.push(x); return { data: { id: "child" } }; }, prompt: async (x: any) => { calls.push(x); return {data:{ok:true}}; } } }; expect(await invokeChild(client, "parent", "exact-agent", "/owned/sample.r001")).toBe("child"); expect(calls[0].body.parentID).toBe("parent"); expect(calls[1].body.agent).toBe("exact-agent"); });
+  it("does not treat hints as registry proof", async()=>expect(await registeredAgentIDs({app:{agents:async()=>({data:[{name:"builder"}]})}})).toEqual(["builder"]));
+  it("detects SDK errors and cleans an orphan child",async()=>{const calls:string[]=[];const client={session:{create:async()=>({data:{id:"child"}}),prompt:async()=>({error:{message:"no"}}),abort:async()=>{calls.push("abort")},delete:async()=>{calls.push("delete")}}};await expect(invokeChild(client,"p","agent","sample.r001")).rejects.toThrow(/prompt failed/);expect(calls).toEqual(["abort","delete"]);});
+});
