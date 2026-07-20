@@ -78,7 +78,7 @@ Restart every running OpenCode process after a user-scoped install. A user insta
 
 ## Source checkout and local install
 
-Direct Git references in OpenCode's `plugin` array are not a documented installation mechanism. The canonical source location is [`CelsoDeSa/senior-pm`](https://github.com/CelsoDeSa/senior-pm), but it remains private during staging; anonymous clone/access is not available or verified until a separately authorized public-visibility check succeeds. From an independently obtained reviewed checkout, build locally and use the package CLI:
+Direct Git references in OpenCode's `plugin` array are not a documented installation mechanism. The canonical source location is [`CelsoDeSa/senior-pm`](https://github.com/CelsoDeSa/senior-pm); the repository is public as a source preview, and anonymous Git clone was verified at the public source-preview cutover. From a reviewed checkout, build locally and use the package CLI:
 
 ```bash
 cd /absolute/path/to/reviewed-senior-pm-checkout
@@ -87,7 +87,11 @@ npm run build
 node packages/senior-product-manager/dist/cli.js install --scope project --project /absolute/path/to/host-project
 ```
 
-This document does not offer an anonymous clone command before public access is verified.
+For the verified public source checkout:
+
+```bash
+git clone https://github.com/CelsoDeSa/senior-pm.git
+```
 
 Keep the checkout or a matching packed tarball if you may need to uninstall this exact version later.
 

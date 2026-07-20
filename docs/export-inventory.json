@@ -55,7 +55,7 @@
     {
       "path": "docs/distribution.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "fa60a888b7baadfdf0ea6fb4d26885fb4a379adf3c24ead04dea534491dd22e4"
+      "sha256": "b9042b738cd9e83f1d03c88e7ac3803219988196fecddb15811dbc2bcce00995"
     },
     {
       "path": "docs/export-inventory.json",
@@ -74,7 +74,7 @@
     {
       "path": "docs/installation.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "5f4d6d54cae34b37b8858ab6807a0b4ecdb0546a1c356ce9da29e56fbdb972ff"
+      "sha256": "01909eead2580c2ae09a7cdcdc2e7e53ee7b8eacc0bf7916ff0b764aef5e9665"
     },
     {
       "path": "docs/integrations.md",
@@ -89,7 +89,7 @@
     {
       "path": "docs/local-validation.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "a09435bc5b53a4237920fafae53a535421889fb730e63f9ad3a3524e6b3278a6"
+      "sha256": "51d36b31bb931dd77798ff2cd7f9261db86b7bde306a367e52ae6816480cf23e"
     },
     {
       "path": "docs/README.md",
@@ -269,7 +269,7 @@
     {
       "path": "packages/senior-product-manager/README.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "d8b993fd71af40a5e64591470ab900adae5381c3d13a4e3cb53ab015e6ae76df"
+      "sha256": "55165b331f7deca3f9d73f702ae7a7ca658898e076b34dde99e8f623ca71aae6"
     },
     {
       "path": "packages/senior-product-manager/sbom/senior-pm.cdx.json",
@@ -744,7 +744,7 @@
     {
       "path": "README.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "39c6e0be9f74a180ec39efa2b93d4498310ac2e1e8331ad686e4225d3456e7e5"
+      "sha256": "856b2172b5f11a13a09361f337d6246d1a8f907475ce75e7ca01db90629ce488"
     },
     {
       "path": "scripts/generate-export-inventory.mjs",
@@ -774,7 +774,7 @@
     {
       "path": "SECURITY.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "9ff0633680482ef21e75a7685ead4f8b759f4fc4c272b1a2c24e2cc55cd2285a"
+      "sha256": "8b90ce8ec8f47a5ac661e0a8ca63ffc06dbfef8bef9035c1575f66e065449cea"
     },
     {
       "path": "tsconfig.json",
