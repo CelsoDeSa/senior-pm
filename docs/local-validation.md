@@ -1,6 +1,6 @@
 # Source-preview validation attestation
 
-This public-safe attestation records executed source-preview evidence. It distinguishes local evidence, successful private hosted CI, and conditions that remain unvalidated for a future public source preview. It is not release certification, publication approval, or proof of an untested environment. Mutable operator reports remain ignored and are not part of the source or package.
+This public-safe attestation records executed source-preview evidence. It distinguishes local evidence, successful private hosted CI, and conditions that remain unvalidated for the public source preview. It is not release certification, publication approval, or proof of an untested environment. Mutable operator reports remain ignored and are not part of the source or package.
 
 ## Reproduce
 
@@ -61,9 +61,9 @@ The package declaration remains Node.js `>=20`; that declaration is not evidence
 
 - `ini@7.0.0`, a transitive development dependency, declares Node `^22.22.2 || ^24.15.0 || >=26.0.0`. npm emitted `EBADENGINE` under both exact tested environments: Node `22.12.0`/npm `10.9.0` and Node `20.20.2`/npm `10.8.2`. npm's default `engine-strict=false` allowed installation, and the complete tests/typecheck/build passed. An `engine-strict=true` install is not supported by this dependency graph.
 - `npm audit --audit-level=high` found zero moderate, high, or critical issues and one low-severity Windows esbuild development-server advisory in the build-only chain. The source-preview runtime does not run that development server.
-- Interactive permission UI, a real explicit-target child session, other OpenCode/Node/npm versions, non-Linux secure mutation, full OMO interoperability, package signing/provenance, public visibility, anonymous clone/access, public vulnerability reporting, and public hosted-CI behavior were not validated.
+- Interactive permission UI, a real explicit-target child session, other OpenCode/Node/npm versions, non-Linux secure mutation, full OMO interoperability, package signing/provenance, and public hosted-CI behavior were not validated. Public visibility, anonymous Git clone, and GitHub private vulnerability reporting availability were verified at the public source-preview cutover.
 - Private Security, Reality, Legal, Brand/content, and Oracle reviews passed for the prior private source-preview evidence. This documentation revision requires fresh exact Security, Reality, Legal, Brand/content, and Oracle review; no result is claimed for this changed tree.
-- No public visibility/settings change, npm publication, release, or announcement is evidenced or claimed here.
+- No npm publication, release, or announcement is evidenced or claimed here.
 
 ## Verification boundaries
 

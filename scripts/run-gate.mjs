@@ -2,6 +2,12 @@ import { createHash } from "node:crypto";
 import { execFileSync, spawnSync } from "node:child_process";
 import { lstat, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
+import {
+  enforcesCommitEmailPolicy,
+  isExpectedHostedCheckout,
+  isHostedCheckoutShape,
+  isSyntheticPullRequestMergeCheckout,
+} from "./hosted-checkout-policy.mjs";
 
 const gate = process.argv[2];
 if (!new Set(["A", "B", "C", "D"]).has(gate))
@@ -56,6 +62,7 @@ const report = async (verdict) => {
     JSON.stringify(payload, null, 2) + "\n",
   );
 };
+let syntheticMergeCommit;
 
 try {
   if (gate === "A") {
@@ -86,11 +93,13 @@ try {
       const actualTree = exact("git", ["rev-parse", "HEAD^{tree}"]);
       record(
         "hosted-expected-checkout",
-        process.env.GITHUB_ACTIONS === "true" &&
-          /^[a-f0-9]{40}$/.test(expectedCommit ?? "") &&
-          /^[a-f0-9]{40}$/.test(expectedTree ?? "") &&
-          actualCommit === expectedCommit &&
-          actualTree === expectedTree,
+        isExpectedHostedCheckout({
+          githubActions: process.env.GITHUB_ACTIONS,
+          expectedCommit,
+          expectedTree,
+          actualCommit,
+          actualTree,
+        }),
         `actions=${process.env.GITHUB_ACTIONS ?? "unset"} commit=${actualCommit} tree=${actualTree}`,
       );
       const remotes = exact("git", ["remote"])
@@ -103,14 +112,34 @@ try {
         .filter(Boolean);
       record(
         "hosted-actions-checkout-shape",
-        remotes.length === 1 &&
-          remotes[0] === "origin" &&
-          !!process.env.GITHUB_REPOSITORY &&
-          (remoteUrl === expectedRemote || remoteUrl === `${expectedRemote}.git`) &&
-          !/[A-Za-z0-9._-]+:[^/@]+@/.test(remoteUrl) &&
-          refs.every((ref) => ref.startsWith("refs/heads/") || ref.startsWith("refs/remotes/origin/")),
+        isHostedCheckoutShape({
+          remotes,
+          remoteUrl,
+          expectedRemote,
+          repository: process.env.GITHUB_REPOSITORY,
+          refs,
+          eventName: process.env.GITHUB_EVENT_NAME,
+          githubRef: process.env.GITHUB_REF,
+        }),
         `remotes=${remotes.join(",") || "none"} refs=${refs.join(",") || "detached"}`,
       );
+      const checkoutParents = exact("git", ["show", "-s", "--format=%P", actualCommit])
+        .split(" ")
+        .filter(Boolean);
+      const syntheticMergeCheckout = isSyntheticPullRequestMergeCheckout({
+        eventName: process.env.GITHUB_EVENT_NAME,
+        githubRef: process.env.GITHUB_REF,
+        refs,
+        expectedCommit,
+        actualCommit,
+        parents: checkoutParents,
+      });
+      record(
+        "hosted-pr-merge-metadata-exemption-shape",
+        process.env.GITHUB_EVENT_NAME !== "pull_request" || syntheticMergeCheckout,
+        `event=${process.env.GITHUB_EVENT_NAME ?? "unset"} commit=${actualCommit} parents=${checkoutParents.length}`,
+      );
+      if (syntheticMergeCheckout) syntheticMergeCommit = actualCommit;
     }
     const inventory = JSON.parse(
       await readFile(path.join(root, "docs/export-inventory.json"), "utf8"),
@@ -293,7 +322,10 @@ try {
     for (let index = 0; index + 3 < metadata.length; index += 4) {
       const [commit, authorEmail, committerEmail, message] = metadata.slice(index, index + 4);
       if (!commit) continue;
-      if (!noreply.test(authorEmail) || !noreply.test(committerEmail))
+      if (
+        enforcesCommitEmailPolicy({ commit, syntheticMergeCommit }) &&
+        (!noreply.test(authorEmail) || !noreply.test(committerEmail))
+      )
         historyForbidden.push(`${commit.slice(0, 12)}:commit-email-policy`);
       const messageFindings = [];
       scanPolicy("COMMIT_MESSAGE", message, messageFindings);

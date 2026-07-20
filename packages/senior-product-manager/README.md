@@ -31,4 +31,4 @@ The package is marked private and intentionally refuses publication. Local packi
 
 The package declares Node.js `>=20`. The source-preview evidence records exact executed Node/npm environments rather than claiming every satisfying runtime is validated. Runtime compatibility is limited to Linux with readable `/proc/self/fd` and exact OpenCode `1.17.20` and `1.18.3`; other combinations are unvalidated.
 
-This README is self-contained when extracted or installed globally. The canonical source location is [`CelsoDeSa/senior-pm`](https://github.com/CelsoDeSa/senior-pm). It remains private during staging, so anonymous clone/access is not available or verified until a separately authorized public-visibility check succeeds. The archive does not provide an npm publication flow.
+This README is self-contained when extracted or installed globally. The canonical source location is [`CelsoDeSa/senior-pm`](https://github.com/CelsoDeSa/senior-pm), which is public as a source preview; anonymous Git clone was verified at the public source-preview cutover. The archive does not provide an npm publication flow.

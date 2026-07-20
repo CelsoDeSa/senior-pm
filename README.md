@@ -4,7 +4,13 @@
 
 Senior PM turns a product request into a repository-grounded, validated specification without implementing the requested feature. It uses documented OpenCode plugin surfaces and writes immutable artifacts under a dedicated Senior PM output root.
 
-The canonical source location is [`CelsoDeSa/senior-pm`](https://github.com/CelsoDeSa/senior-pm). It remains private during staging: anonymous clone and access are not available or verified until a separately authorized public-visibility check succeeds.
+## What it adds / Why use it
+
+Senior PM does not add model intelligence or replace OpenCode, OMO-Slim, or configured model agents. It provides a repeatable product-workflow and control layer: bounded discovery, typed and versioned immutable specifications, deterministic validation, external hash-bound approval, and guarded handoff. Produces auditable artifacts that survive sessions and can be reviewed independently.
+
+It does not implement production features, cannot self-approve a design-review sidecar, and validation does not prove product truth. `auto` never invokes a target; handoff is guarded and manual by default.
+
+The canonical source location is [`CelsoDeSa/senior-pm`](https://github.com/CelsoDeSa/senior-pm), which is public as a source preview. Anonymous Git clone and GitHub private vulnerability reporting availability were verified at the public source-preview cutover. The project remains unreleased and is not published to npm.
 
 ## Supported environment
 
@@ -57,7 +63,7 @@ Reproducible commands and public-safe result summaries are recorded in [Local va
 
 ## Security and support
 
-The repository remains private during staging, so no outsider reporting flow is verified. Read [SECURITY.md](SECURITY.md) for the current reporting boundary. General usage questions and vulnerability reports follow different processes.
+Read [SECURITY.md](SECURITY.md) for the current vulnerability-reporting boundary. General usage questions and vulnerability reports follow different processes.
 
 ## License
 
