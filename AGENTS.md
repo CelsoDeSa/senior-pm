@@ -41,7 +41,7 @@ Whenever Senior PM is renamed or materially changed, update in the same pull req
 2. The product and public-ID descriptions in `README.md` and this file.
 3. The compatibility table in `docs/compatibility.md`.
 4. `CHANGELOG.md`.
-5. The source-preview status and canonical-link placeholders.
+5. The source-preview status and canonical source link.
 
 Also update package documentation, configuration reference, examples, security assumptions, and validation templates when their contracts change. A new public field, command, tool, status, schema, artifact, permission, or failure mode is incomplete without matching documentation.
 
@@ -63,4 +63,4 @@ Also update package documentation, configuration reference, examples, security a
 5. Update documentation and the changelog in the same change.
 6. Do not commit, publish, push, or create a release unless the user explicitly requests it.
 
-Use [CONTRIBUTING.md](CONTRIBUTING.md) for setup and review requirements and [SECURITY.md](SECURITY.md) for private vulnerability reporting.
+Use [CONTRIBUTING.md](CONTRIBUTING.md) for setup and review requirements and [SECURITY.md](SECURITY.md) for the current vulnerability-reporting boundary.

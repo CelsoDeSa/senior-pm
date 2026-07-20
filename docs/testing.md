@@ -125,7 +125,7 @@ Relevant suites should cover:
 
 ## Executed OpenCode runtime validation
 
-The local source-preview gate must exercise the relocated packed plugin on exact OpenCode `1.17.20` and exact npm `opencode-ai@1.18.3`. Record registration, five-tool visibility, specification/validation, install, and removal outcomes in a private local report, then publish only a sanitized result summary such as [Local validation](local-validation.md); do not reuse another repository's result.
+The source-preview gate must exercise the relocated packed plugin on exact OpenCode `1.17.20` and `1.18.3`. Record registration, five-tool visibility, specification/validation, install, and removal outcomes in private local or hosted evidence, then publish only a sanitized result summary such as [Local validation](local-validation.md); do not reuse another repository's result or private hosted identifiers.
 
 No OMO runtime compatibility is claimed by the source-preview candidate. OMO-like names remain advisory test fixtures only.
 

@@ -1,10 +1,10 @@
 # Senior PM for OpenCode
 
-> **Status:** Public source preview candidate. This is not a formal release and is not published to npm.
+> **Status:** Public source preview. This is not a formal release and is not published to npm.
 
 Senior PM turns a product request into a repository-grounded, validated specification without implementing the requested feature. It uses documented OpenCode plugin surfaces and writes immutable artifacts under a dedicated Senior PM output root.
 
-Source clone links are intentionally unavailable while no canonical candidate remote is authorized. Adding final repository URLs during a later cutover requires a fresh exact-tree content and security review.
+The canonical source location is [`CelsoDeSa/senior-pm`](https://github.com/CelsoDeSa/senior-pm). It remains private during staging: anonymous clone and access are not available or verified until a separately authorized public-visibility check succeeds.
 
 ## Supported environment
 
@@ -57,7 +57,7 @@ Reproducible commands and public-safe result summaries are recorded in [Local va
 
 ## Security and support
 
-This candidate is staged privately, so an outsider reporting flow cannot yet be verified. Read [SECURITY.md](SECURITY.md) before reporting a vulnerability. General usage questions and vulnerability reports follow different processes.
+The repository remains private during staging, so no outsider reporting flow is verified. Read [SECURITY.md](SECURITY.md) for the current reporting boundary. General usage questions and vulnerability reports follow different processes.
 
 ## License
 

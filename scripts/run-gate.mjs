@@ -120,6 +120,12 @@ try {
       "packages/senior-product-manager/test/fixtures/compatibility/legacy-byte/fixture.json",
       "packages/senior-product-manager/test/unit/installer/installer.test.ts",
     ]);
+    const canonicalSourceAllowed = new Set([
+      "README.md",
+      "docs/distribution.md",
+      "docs/installation.md",
+      "packages/senior-product-manager/README.md",
+    ]);
     const formerOwnerAllowed = new Set([
       "packages/senior-product-manager/src/shared/constants.ts",
       "packages/senior-product-manager/src/installer/legacy-migration.ts",
@@ -167,12 +173,17 @@ try {
         /actions\/runs\//g,
         privateSamplePattern,
         privateReportPattern,
-        privateCanonicalPattern,
         /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,
       ])
         if (pattern.test(text)) output.push(`${file}:${pattern.source}`);
+      if (privateCanonicalPattern.test(text) && !canonicalSourceAllowed.has(file))
+        output.push(`${file}:${privateCanonicalPattern.source}`);
       const ownerName = ["Celso", "DeSa"].join("");
-      if (text.includes(ownerName) && !personalNameAllowed.has(file))
+      if (
+        text.includes(ownerName) &&
+        !personalNameAllowed.has(file) &&
+        !canonicalSourceAllowed.has(file)
+      )
         output.push(`${file}:owner-name`);
       if (text.includes(formerOwner) && !formerOwnerAllowed.has(file))
         output.push(`${file}:former-owner-outside-compatibility`);
@@ -216,6 +227,10 @@ try {
         {
           paths: [...new Set([...formerOwnerAllowed, ...formerSchemaAllowed])],
           values: "exact former owner/schema literals in explicit compatibility locations only; former package/archive prefixes prohibited",
+        },
+        {
+          paths: [...canonicalSourceAllowed],
+          values: "exact canonical source URL in public documentation only",
         },
       ],
     );
@@ -380,7 +395,12 @@ try {
         if (/\/home\/[A-Za-z0-9._-]+\//.test(text)) archiveScanFailures.push(`${relative}:absolute-user-path`);
         if (/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(text)) archiveScanFailures.push(`${relative}:email`);
         if (/(?:AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9]{36})/.test(text)) archiveScanFailures.push(`${relative}:credential-pattern`);
-        if (privateCanonical.test(text) || privateSample.test(text) || privateReport.test(text) || /actions\/runs\//.test(text)) archiveScanFailures.push(`${relative}:private-identifier`);
+        if (
+          (privateCanonical.test(text) && relative !== "README.md") ||
+          privateSample.test(text) ||
+          privateReport.test(text) ||
+          /actions\/runs\//.test(text)
+        ) archiveScanFailures.push(`${relative}:private-identifier`);
         if (/(?:^|\/)(?:auth\.json|credentials|sessions?)(?:$|[./])/i.test(relative)) archiveScanFailures.push(`${relative}:auth-session-file`);
       }
     };

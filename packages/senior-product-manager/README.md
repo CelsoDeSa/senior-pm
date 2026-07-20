@@ -1,6 +1,6 @@
 # Senior PM for OpenCode
 
-> Public source preview candidate. Not a formal release. Not published to npm.
+> Public source preview. Not a formal release. Not published to npm.
 
 Senior PM produces repository-grounded, validated product specifications without writing production code.
 
@@ -31,4 +31,4 @@ The package is marked private and intentionally refuses publication. Local packi
 
 The package declares Node.js `>=20`. The source-preview evidence records exact executed Node/npm environments rather than claiming every satisfying runtime is validated. Runtime compatibility is limited to Linux with readable `/proc/self/fd` and exact OpenCode `1.17.20` and `1.18.3`; other combinations are unvalidated.
 
-This README is self-contained when extracted or installed globally. Full source documentation and clone links are intentionally unavailable from the archive until a canonical candidate remote is separately authorized and reviewed.
+This README is self-contained when extracted or installed globally. The canonical source location is `https://github.com/CelsoDeSa/senior-pm`; it remains private during staging, so anonymous clone/access is not available or verified until a separately authorized public-visibility check succeeds. The archive does not provide an npm publication flow.

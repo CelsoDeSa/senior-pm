@@ -2,7 +2,7 @@
 
 ## Runtime boundary
 
-Local validation targets exact OpenCode `1.17.20` and `1.18.3` on Linux with readable `/proc/self/fd` and writable real non-symlink project directories. Git is optional. Other versions and operating systems are unvalidated.
+Source-preview validation targets exact OpenCode `1.17.20` and `1.18.3` on Linux with readable `/proc/self/fd` and writable real non-symlink project directories. Local and private hosted execution are recorded in [Local validation](local-validation.md); Git is optional. Other versions and operating systems are unvalidated.
 
 ## Stable IDs
 

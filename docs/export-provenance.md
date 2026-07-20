@@ -1,6 +1,6 @@
 # Export provenance
 
-This source preview was assembled from a reviewed relative-path source export plus the remediation files listed in the inventory.
+This source preview was assembled from a reviewed relative-path source export plus candidate-authored remediation and public-evidence documentation listed in the inventory.
 
 ## Included classes
 

@@ -1,6 +1,6 @@
-# Local validation attestation
+# Source-preview validation attestation
 
-This public-safe attestation records reproducible local source-preview evidence. It is scoped to the exact source tree that contains this document and does not certify a release, publication, hosted workflow, or untested environment. Mutable operator reports remain ignored and are not part of the source or package.
+This public-safe attestation records executed source-preview evidence. It distinguishes local evidence, successful private hosted CI, and conditions that remain unvalidated for a future public source preview. It is not release certification, publication approval, or proof of an untested environment. Mutable operator reports remain ignored and are not part of the source or package.
 
 ## Reproduce
 
@@ -30,7 +30,7 @@ npm run validate:known-legacy -- --source-config <retained-config-root>
 
 The bounded result is recorded in [Complete known legacy installation validation](known-legacy-validation.md).
 
-`gate:a` is the strict local fresh-root/no-remote mode. The authored workflow uses the separate `gate:a:hosted` mode with the expected checkout commit and tree. Hosted CI was not run for this source tree.
+`gate:a` is the strict local fresh-root/no-remote mode. The authored workflow uses the separate `gate:a:hosted` mode with the expected checkout commit and tree.
 
 ## Executed environments
 
@@ -39,29 +39,31 @@ The bounded result is recorded in [Complete known legacy installation validation
 | Local remediation | Linux x64; Node.js `22.12.0`; npm `10.9.0`; Git `2.43.0` |
 | Clean Node 20 | `node@sha256:8f693eaa7e0a8e71560c9a82b55fd54c2ae920a2ba5d2cde28bac7d1c01c9ba5`; Node.js `20.20.2`; npm `10.8.2` |
 | OpenCode matrix | Exact npm executables `opencode-ai@1.17.20` and `opencode-ai@1.18.3` |
+| Private hosted CI | Ubuntu `24.04.4`; Node.js `20.20.2`; npm `10.8.2`; exact OpenCode `1.17.20` and `1.18.3` |
 
 The package declaration remains Node.js `>=20`; that declaration is not evidence that every satisfying Node/npm pair works. Other versions and platforms are unvalidated.
 
 ## Executed results
 
-- `npm test`: **16 test files / 177 tests passed** — 13 unit files / 147 tests, two core-integration files / 13 tests, and one built-runtime file / 17 tests.
+- `npm test`: **16 test files / 178 tests passed** — 13 unit files / 147 tests, two core-integration files / 14 tests, and one built-runtime file / 17 tests.
 - Focused migration/security matrix: `test/unit/installer/installer.test.ts`, **46 tests passed**, including bundled fingerprint authority, caller-override refusal, exact-fingerprint refusal, replacement races, parent replacement, quarantine injection/replacement, restoration, unrelated-file preservation, and structured post-commit cleanup recovery.
 - Typecheck and build: passed locally and in the clean Node 20 environment.
-- Clean Node 20 test result: **16 files / 177 tests passed**; typecheck and build passed.
+- Clean Node 20 test result: **16 files / 178 tests passed**; typecheck and build passed.
 - Deterministic build comparison: two clean local builds produced aggregate `dist` manifest hash `c6d194ab7a25e63f3dadaea44bfbd9c98a5057038cdb583b19f9445bd058e218`.
-- Local package: `senior-pm-0.1.0.tgz`, 98 entries, 249,557 packed bytes, 1,390,083 unpacked bytes, npm shasum `0d95414103bfecdb735ba894bacada84035a6e4b`, SHA-256 `2a7fa6367ed64b7cfd5c6d68a892860eceda0fb3984af669061da1cbb758fb5e`.
+- Local package: `senior-pm-0.1.0.tgz`, 98 entries, 249,579 packed bytes, 1,390,193 unpacked bytes, npm shasum `1574447acf04ceda2e77bb4252d1d6acb20908e1`, SHA-256 `4e06f45041c8c25bebb4b7444bd0b358cf97ac81862fda962637fd8bd29767d2`.
 - Package checks: packing passed; root and package `prepublishOnly` refused; `npm publish --dry-run` refused; packed allowlist, symlink scan, private-metadata scan, and extracted-package Markdown links passed.
 - Bundled reconciliation: packed metafile, lockfile, notices, four exact license texts, and the sole CycloneDX SBOM agreed on `zod@3.25.76`, `jsonc-parser@3.3.1`, `@opencode-ai/plugin@1.18.3`, and nested `zod@4.1.8`; no unclassified bundled module was found.
 - OpenCode `1.17.20` and `1.18.3`: packed install, agent/four-command/five-tool registration, config, discovery, immutable specification write, committed validation, manual handoff, uninstall, and owned-path removal passed.
 - Synthetic sample: validation passed; product-content hash `67dd101d809045247705ceb397abc59d560581541ed20337226f84c7c442c517`; status `Ready for design review`; `designApproved:false`; `handoffEligible:false`.
+- Private hosted CI: `npm ci`, the 178-test aggregate, typecheck, build, hosted Gate A, Gates B-D, package/license checks, and the exact OpenCode matrix passed. Private hosted CI is execution evidence only; its mutable details are intentionally not tracked here.
 
 ## Warnings and limits
 
 - `ini@7.0.0`, a transitive development dependency, declares Node `^22.22.2 || ^24.15.0 || >=26.0.0`. npm emitted `EBADENGINE` under both exact tested environments: Node `22.12.0`/npm `10.9.0` and Node `20.20.2`/npm `10.8.2`. npm's default `engine-strict=false` allowed installation, and the complete tests/typecheck/build passed. An `engine-strict=true` install is not supported by this dependency graph.
 - `npm audit --audit-level=high` found zero moderate, high, or critical issues and one low-severity Windows esbuild development-server advisory in the build-only chain. The source-preview runtime does not run that development server.
-- Interactive permission UI, a real explicit-target child session, other OpenCode/Node/npm versions, non-Linux secure mutation, full OMO interoperability, package signing/provenance, and public vulnerability reporting were not validated.
-- External Security, Reality, Legal, Brand/content, and Oracle reviews are pending re-review for this changed tree.
-- No remote, hosted CI, canonical cutover, visibility/settings change, npm publication, release, or announcement is evidenced or claimed here.
+- Interactive permission UI, a real explicit-target child session, other OpenCode/Node/npm versions, non-Linux secure mutation, full OMO interoperability, package signing/provenance, public visibility, anonymous clone/access, public vulnerability reporting, and public hosted-CI behavior were not validated.
+- Private Security, Reality, Legal, Brand/content, and Oracle reviews passed for the prior private source-preview evidence. This documentation revision requires fresh exact Security, Reality, Legal, Brand/content, and Oracle review; no result is claimed for this changed tree.
+- No public visibility/settings change, npm publication, release, or announcement is evidenced or claimed here.
 
 ## Verification boundaries
 

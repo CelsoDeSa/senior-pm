@@ -25,12 +25,12 @@
     {
       "path": "AGENTS.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "1fe8ff4419275b51e25bc9f4fbc3c1143604eb46941a8c4dc54e8426c71380bb"
+      "sha256": "b1102ce86e2952e705fb78b265c0599748a151bacc06487800fed0869ea1be4d"
     },
     {
       "path": "CHANGELOG.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "050bc47e628ee658d28fe8ae6bf85e5d8d7baa75e900064f1d914a3763b24f46"
+      "sha256": "37deff14dcc9ed58688e44ad5b108cfcc7f3b3028fd1f565a5d77e2ebca86d35"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -45,7 +45,7 @@
     {
       "path": "docs/compatibility.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "0f6110aba5c1556b71fe44f286c91ba5c6711ae9d2d888714d0182b7f2ab26ee"
+      "sha256": "92d9e05c4b15044133d4af053ed0b06bc2ce2fbac1aaadbb8c50b4065ee77e6b"
     },
     {
       "path": "docs/configuration.md",
@@ -55,7 +55,7 @@
     {
       "path": "docs/distribution.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "202b8051c28bbf69939370a1fd5a779baca86d476bebc5812394e2ca5b72df1d"
+      "sha256": "fa60a888b7baadfdf0ea6fb4d26885fb4a379adf3c24ead04dea534491dd22e4"
     },
     {
       "path": "docs/export-inventory.json",
@@ -64,7 +64,7 @@
     {
       "path": "docs/export-provenance.md",
       "provenance": "candidate-authored",
-      "sha256": "1fd0f65b2eb589f3d079f696184b80ab1124d50c616c4325c3e5aa205c52c846"
+      "sha256": "b42fe88e4e80e77e31af0383c66248f5f35751ca9175f61721513597aaf5b485"
     },
     {
       "path": "docs/extensibility.md",
@@ -74,7 +74,7 @@
     {
       "path": "docs/installation.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "4de06ba7414ac15aeff3ec9c9e5d7f5c7d3c298c3a6bc080a11c7d475b2d38d2"
+      "sha256": "5f4d6d54cae34b37b8858ab6807a0b4ecdb0546a1c356ce9da29e56fbdb972ff"
     },
     {
       "path": "docs/integrations.md",
@@ -89,7 +89,7 @@
     {
       "path": "docs/local-validation.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "d420af82ead023e81f09084c5a04ad5c4ba6d5260ad74662e5c4ced868d0bcf3"
+      "sha256": "c3ae730105977299322c96a73133651c1168e70aa03bcf7bdbe1b15d32fb142a"
     },
     {
       "path": "docs/README.md",
@@ -109,7 +109,7 @@
     {
       "path": "docs/testing.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "ff8829e58329cddf97be7f5c29817390be1382ad8acbe7348d4aecc5a5e4ec4e"
+      "sha256": "7fef3a8c005ec0b3c19da12a59551aae0bae7f4e8a056207d1790206992192cf"
     },
     {
       "path": "docs/troubleshooting.md",
@@ -129,7 +129,7 @@
     {
       "path": "docs/validation-report-template.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "184da8d948c230a0c7eb33feb62b56ef627c7937d5281c39529f3e6e6a252495"
+      "sha256": "02debae518e92cf224438179c70c7a386578ab3301d36c6d5a0e2c30b6389c64"
     },
     {
       "path": "examples/config/operator-autonomous.jsonc",
@@ -269,7 +269,7 @@
     {
       "path": "packages/senior-product-manager/README.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "dac1a638f288651338a41707d7215aff68e6b6923023e24989d2cbaa556be710"
+      "sha256": "4451bf3af8a3b7b7cdd7f286456ee4a65e61226e3eda16e9619d19e379236181"
     },
     {
       "path": "packages/senior-product-manager/sbom/senior-pm.cdx.json",
@@ -744,7 +744,7 @@
     {
       "path": "README.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "e1da9afcfe0ae6e7e70b4fdba3059db5692d4b99f2b121c792d7cf5f06aaaffe"
+      "sha256": "39c6e0be9f74a180ec39efa2b93d4498310ac2e1e8331ad686e4225d3456e7e5"
     },
     {
       "path": "scripts/generate-export-inventory.mjs",
@@ -759,7 +759,7 @@
     {
       "path": "scripts/run-gate.mjs",
       "provenance": "candidate-authored",
-      "sha256": "6adebaac60c8b82dc7ff4ca677b43fcf2df82d7f684089a302b1ec83fb22f4de"
+      "sha256": "81f4e30bbf1b94254f560132d4443084f2ba82d6e8f251e3eceea17b0069cdeb"
     },
     {
       "path": "scripts/run-opencode-matrix.mjs",
@@ -774,7 +774,7 @@
     {
       "path": "SECURITY.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "c6eefd5b4462a24a520d6b235edbb2bd63d5e8ee9c1dd81af4355d8cfc7a3bc7"
+      "sha256": "9ff0633680482ef21e75a7685ead4f8b759f4fc4c272b1a2c24e2cc55cd2285a"
     },
     {
       "path": "tsconfig.json",
