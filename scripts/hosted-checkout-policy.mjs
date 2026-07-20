@@ -43,3 +43,25 @@ export const isHostedCheckoutShape = ({
     )
   );
 };
+
+export const isSyntheticPullRequestMergeCheckout = ({
+  eventName,
+  githubRef,
+  refs,
+  expectedCommit,
+  actualCommit,
+  parents,
+}) => {
+  const pullRequestMergeRef = expectedPullRequestMergeRef({ eventName, githubRef });
+  return (
+    pullRequestMergeRef !== undefined &&
+    refs.includes(pullRequestMergeRef) &&
+    hash.test(expectedCommit ?? "") &&
+    actualCommit === expectedCommit &&
+    parents.length === 2 &&
+    parents.every((parent) => hash.test(parent))
+  );
+};
+
+export const enforcesCommitEmailPolicy = ({ commit, syntheticMergeCommit }) =>
+  commit !== syntheticMergeCommit;
