@@ -84,12 +84,12 @@
     {
       "path": "docs/known-legacy-validation.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "1035ed6e472877742485872c17b08256b13e961ab4c993d4bba82e11c6e55375"
+      "sha256": "3f66bb3edfc00fc7768080e44855debc998581f080f525c520ea163f4891236e"
     },
     {
       "path": "docs/local-validation.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "c3ae730105977299322c96a73133651c1168e70aa03bcf7bdbe1b15d32fb142a"
+      "sha256": "a09435bc5b53a4237920fafae53a535421889fb730e63f9ad3a3524e6b3278a6"
     },
     {
       "path": "docs/README.md",
@@ -269,7 +269,7 @@
     {
       "path": "packages/senior-product-manager/README.md",
       "provenance": "reviewed-sanitized-export",
-      "sha256": "4451bf3af8a3b7b7cdd7f286456ee4a65e61226e3eda16e9619d19e379236181"
+      "sha256": "d8b993fd71af40a5e64591470ab900adae5381c3d13a4e3cb53ab015e6ae76df"
     },
     {
       "path": "packages/senior-product-manager/sbom/senior-pm.cdx.json",
@@ -759,7 +759,7 @@
     {
       "path": "scripts/run-gate.mjs",
       "provenance": "candidate-authored",
-      "sha256": "81f4e30bbf1b94254f560132d4443084f2ba82d6e8f251e3eceea17b0069cdeb"
+      "sha256": "b686dc36e828acb974c6a80dc26fd1fe7d89e37140c61e32e5c014d4b22a3479"
     },
     {
       "path": "scripts/run-opencode-matrix.mjs",
@@ -769,7 +769,7 @@
     {
       "path": "scripts/validate-known-legacy.mjs",
       "provenance": "candidate-authored",
-      "sha256": "bbe716a6526eb5f409f2cd5ed0c18ccb31b72a74f37e260302a1d3f0495ce5fb"
+      "sha256": "f492a9015ce808b8fe31909b0c041154b68961f6f84562cfd557d8f8e0f0ec76"
     },
     {
       "path": "SECURITY.md",

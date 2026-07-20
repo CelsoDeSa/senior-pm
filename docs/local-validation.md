@@ -50,7 +50,7 @@ The package declaration remains Node.js `>=20`; that declaration is not evidence
 - Typecheck and build: passed locally and in the clean Node 20 environment.
 - Clean Node 20 test result: **16 files / 178 tests passed**; typecheck and build passed.
 - Deterministic build comparison: two clean local builds produced aggregate `dist` manifest hash `c6d194ab7a25e63f3dadaea44bfbd9c98a5057038cdb583b19f9445bd058e218`.
-- Local package: `senior-pm-0.1.0.tgz`, 98 entries, 249,579 packed bytes, 1,390,193 unpacked bytes, npm shasum `1574447acf04ceda2e77bb4252d1d6acb20908e1`, SHA-256 `4e06f45041c8c25bebb4b7444bd0b358cf97ac81862fda962637fd8bd29767d2`.
+- Local package: `senior-pm-0.1.0.tgz`, 98 entries, 249,613 packed bytes, 1,390,216 unpacked bytes, npm shasum `05d5fcf66b3a0625e1dd13a3ab52ff7d89897dfe`, SHA-256 `d4d43a15735fec165f0c66e98cf630a4824935fade3f142dd84ce75a65119618`.
 - Package checks: packing passed; root and package `prepublishOnly` refused; `npm publish --dry-run` refused; packed allowlist, symlink scan, private-metadata scan, and extracted-package Markdown links passed.
 - Bundled reconciliation: packed metafile, lockfile, notices, four exact license texts, and the sole CycloneDX SBOM agreed on `zod@3.25.76`, `jsonc-parser@3.3.1`, `@opencode-ai/plugin@1.18.3`, and nested `zod@4.1.8`; no unclassified bundled module was found.
 - OpenCode `1.17.20` and `1.18.3`: packed install, agent/four-command/five-tool registration, config, discovery, immutable specification write, committed validation, manual handoff, uninstall, and owned-path removal passed.

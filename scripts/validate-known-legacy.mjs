@@ -138,7 +138,7 @@ This bounded public-safe attestation records execution against the complete know
 - Pre-commit faults at both post-quarantine and post-neutral-install boundaries restored the complete legacy tree exactly.
 - Complete-shape payload, mode, extra-entry, extra-version, and symlink mutations each refused before migration mutation and created no quarantine.
 
-The detailed before/after inventories and hashes remain in ignored local evidence at \`.candidate-evidence/known-legacy-validation.json\`. This attestation contains no retained source path or private file content and does not authorize downgrade or any legacy shape beyond the frozen fingerprint.
+Detailed before/after inventories and hashes remain in ignored local evidence. This attestation contains no retained source path or private file content and does not authorize downgrade or any legacy shape beyond the frozen fingerprint.
 `;
 await writeFile(publicPath, publicAttestation);
 await rm(workRoot, { recursive: true, force: true });

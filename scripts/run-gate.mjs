@@ -26,6 +26,16 @@ const run = (command, args, options = {}) =>
 const exact = (command, args) =>
   execFileSync(command, args, { cwd: root, encoding: "utf8" }).trim();
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
+const canonicalSourceUrl =
+  "https://github.com/" + ["Celso", "DeSa"].join("") + "/senior-pm";
+const canonicalSourceUrlPattern = new RegExp(
+  canonicalSourceUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "[^\\s<>\"'`)]*",
+  "g",
+);
+const disallowedCanonicalSourceUrls = (text, allowedLocation) =>
+  [...text.matchAll(canonicalSourceUrlPattern)]
+    .map((match) => match[0])
+    .filter((url) => !allowedLocation || url !== canonicalSourceUrl);
 const tracked = () =>
   exact("git", ["ls-files", "-z"]).split("\0").filter(Boolean).sort();
 const report = async (verdict) => {
@@ -164,10 +174,6 @@ try {
         ["rebrand", "migration"].join("-") + "\\.md",
         "g",
       );
-      const privateCanonicalPattern = new RegExp(
-        "github\\.com/" + ["Celso", "DeSa"].join("") + "/senior-pm",
-        "g",
-      );
       for (const pattern of [
         /\/home\/[A-Za-z0-9._-]+\//g,
         /actions\/runs\//g,
@@ -176,8 +182,11 @@ try {
         /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,
       ])
         if (pattern.test(text)) output.push(`${file}:${pattern.source}`);
-      if (privateCanonicalPattern.test(text) && !canonicalSourceAllowed.has(file))
-        output.push(`${file}:${privateCanonicalPattern.source}`);
+      for (const url of disallowedCanonicalSourceUrls(
+        text,
+        canonicalSourceAllowed.has(file),
+      ))
+        output.push(`${file}:canonical-source-url:${url}`);
       const ownerName = ["Celso", "DeSa"].join("");
       if (
         text.includes(ownerName) &&
@@ -210,6 +219,22 @@ try {
         output.push(`${file}:credential-pattern`);
     };
     const forbidden = [];
+    const canonicalPolicyCases = [
+      [canonicalSourceUrl, true],
+      [canonicalSourceUrl + "-source-preview", false],
+      [canonicalSourceUrl + "-evidence-vault", false],
+      [canonicalSourceUrl + "/tree/main", false],
+      [canonicalSourceUrl + "?ref=main", false],
+      [canonicalSourceUrl + "#readme", false],
+    ];
+    record(
+      "canonical-source-url-policy-variants",
+      canonicalPolicyCases.every(
+        ([url, allowed]) =>
+          disallowedCanonicalSourceUrls(url, true).length === (allowed ? 0 : 1),
+      ) && disallowedCanonicalSourceUrls(canonicalSourceUrl, false).length === 1,
+      "canonical=allowed; source-preview/evidence-vault/path/query/fragment=refused",
+    );
     for (const file of files) {
       const bytes = await readFile(path.join(root, file));
       if (bytes.includes(0)) continue;
@@ -389,14 +414,13 @@ try {
         const bytes = await readFile(absolute);
         if (bytes.includes(0)) continue;
         const text = bytes.toString("utf8");
-        const privateCanonical = new RegExp("github\\.com/" + ["Celso", "DeSa"].join("") + "/senior-pm", "i");
         const privateSample = new RegExp(["resume", "committed", "pm", "workflow"].join("-"), "i");
         const privateReport = new RegExp(["rebrand", "migration"].join("-") + "\\.md", "i");
         if (/\/home\/[A-Za-z0-9._-]+\//.test(text)) archiveScanFailures.push(`${relative}:absolute-user-path`);
         if (/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(text)) archiveScanFailures.push(`${relative}:email`);
         if (/(?:AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9]{36})/.test(text)) archiveScanFailures.push(`${relative}:credential-pattern`);
         if (
-          (privateCanonical.test(text) && relative !== "README.md") ||
+          disallowedCanonicalSourceUrls(text, relative === "README.md").length ||
           privateSample.test(text) ||
           privateReport.test(text) ||
           /actions\/runs\//.test(text)
