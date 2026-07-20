@@ -90,7 +90,7 @@ node packages/senior-product-manager/dist/cli.js install --scope project --proje
 For the verified public source checkout:
 
 ```bash
-git clone https://github.com/CelsoDeSa/senior-pm.git
+git clone https://github.com/CelsoDeSa/senior-pm
 ```
 
 Keep the checkout or a matching packed tarball if you may need to uninstall this exact version later.
